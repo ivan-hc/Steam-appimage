@@ -1,0 +1,46 @@
+name: CI
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: build
+      run: |
+        wget https://raw.githubusercontent.com/ivan-hc/Steam-appimage/main/steam
+        chmod a+x ./steam
+        ./steam
+        mkdir dist
+        mv *AppImage dist/
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: Steam-x86_64.AppImage
+        path: 'dist'
+        
+  release:
+      needs: [build]
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/download-artifact@v1
+          with:
+            name: Steam-x86_64.AppImage
+
+        - name: release
+          uses: marvinpinto/action-automatic-releases@latest
+          with:
+            title: Continuous build
+            automatic_release_tag: continuous
+            prerelease: true
+            draft: false
+            files: |
+              Steam-x86_64.AppImage
+            repo_token: ${{ secrets.GITHUB_TOKEN }}
