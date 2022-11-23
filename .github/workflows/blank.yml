@@ -14,6 +14,7 @@ jobs:
 
     - name: build
       run: |
+        sudo apt update && sudo apt install libfuse2
         wget https://raw.githubusercontent.com/ivan-hc/Steam-appimage/main/steam
         chmod a+x ./steam
         ./steam
