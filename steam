@@ -23,6 +23,7 @@ ingredients:
     - deb http://ftp.debian.org/debian/ oldstable main contrib non-free
   packages:
     - steam
+    - tar
     - zenity
     - zenity-common" >> recipe.yml;
 
