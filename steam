@@ -22,7 +22,8 @@ ingredients:
   sources:
     - deb http://ftp.debian.org/debian/ oldstable main contrib non-free
   packages:
-    - steam" >> recipe.yml;
+    - steam
+    - zenity" >> recipe.yml;
 
 ./pkg2appimage ./recipe.yml;
 
