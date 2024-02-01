@@ -2,7 +2,7 @@ This repository provides the script to create an experimental portable version o
 
 It is built from the official .deb package, so it works like a standalone binary file.
 
-# NOTE: requires 32-bit libraries installed your system.
+# NOTE: requires 32-bit libraries installed on your system!
 
 ---------------------------------
 
