@@ -54,6 +54,7 @@ cat >> ./$APP/$APP.AppDir/AppRun << 'EOF'
 #!/bin/sh
 HERE="$(dirname "$(readlink -f "${0}")")"
 export UNION_PRELOAD="${HERE}"
+#export LD_PRELOAD="${HERE}"/libunionpreload.so
 export PATH=/usr/bin/:"${HERE}"/usr/bin/:"${HERE}"/usr/sbin/:"${HERE}"/usr/games/:"${HERE}"/bin/:"${HERE}"/sbin/:"${PATH}"
 export LD_LIBRARY_PATH=/lib/:/lib64/:/lib32/:/usr/lib/i386-linux-gnu/:/usr/lib/x86_64-linux-gnu/:"${HERE}"/usr/lib/:"${HERE}"/lib/:"${HERE}"/lib32/:"${HERE}"/usr/lib32/:"${LD_LIBRARY_PATH}"
 export XDG_DATA_DIRS=/usr/share/:"${HERE}"/usr/share/:"${XDG_DATA_DIRS}"
