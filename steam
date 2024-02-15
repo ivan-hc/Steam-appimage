@@ -2,16 +2,27 @@
 
 APP=steam
 
-mkdir tmp;
-cd tmp;
+# CREATE A TEMPORARY DIRECTORY
+mkdir -p tmp
+cd tmp
 
 # DOWNLOADING THE DEPENDENCIES
-wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-$(uname -m).AppImage -O appimagetool
-wget https://raw.githubusercontent.com/ivan-hc/AM-application-manager/main/tools/pkg2appimage # 64 BIT ONLY (comment to disable)
-# wget https://github.com/ivan-hc/pkg2appimage-32bit/releases/download/continuous/pkg2appimage-i386.AppImage -O pkg2appimage # 32 BIT ONLY (uncomment to enable)
+if test -f ./appimagetool; then
+	echo " appimagetool already exists" 1> /dev/null
+else
+	echo " Downloading appimagetool..."
+	wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool
+fi
+if test -f ./pkg2appimage; then
+	echo " pkg2appimage already exists" 1> /dev/null
+else
+	echo " Downloading pkg2appimage..."
+	wget -q https://raw.githubusercontent.com/ivan-hc/AM-application-manager/main/tools/pkg2appimage
+fi
 chmod a+x ./appimagetool ./pkg2appimage
+rm -f ./recipe.yml
 
-# CREATING THE APPIMAGE: APPDIR FROM A RECIPE...
+# CREATING THE HEAD OF THE RECIPE
 echo "app: steam
 binpatch: true
 
@@ -22,22 +33,35 @@ ingredients:
   sources:
     - deb http://ftp.debian.org/debian/ oldstable main contrib non-free
   packages:
-    - steam" >> recipe.yml;
+    - steam
+    - libc6-i386" >> recipe.yml
 
-./pkg2appimage ./recipe.yml;
 
-# ...REPLACING THE EXISTING APPRUN WITH A CUSTOM ONE...
+# DOWNLOAD ALL THE NEEDED PACKAGES AND COMPILE THE APPDIR
+./pkg2appimage ./recipe.yml
+
+# LIBUNIONPRELOAD
+#wget https://github.com/project-portable/libunionpreload/releases/download/amd64/libunionpreload.so
+#chmod a+x libunionpreload.so
+#mv ./libunionpreload.so ./$APP/$APP.AppDir/
+
+# COMPILE SCHEMAS
+glib-compile-schemas ./$APP/$APP.AppDir/usr/share/glib-2.0/schemas/ || echo "No ./usr/share/glib-2.0/schemas/"
+
+# CUSTOMIZE THE APPRUN
 rm -R -f ./$APP/$APP.AppDir/AppRun
 cat >> ./$APP/$APP.AppDir/AppRun << 'EOF'
 #!/bin/sh
 HERE="$(dirname "$(readlink -f "${0}")")"
 export UNION_PRELOAD="${HERE}"
-export PATH=/usr/bin/:"${HERE}"/usr/bin/:"${HERE}"/usr/sbin/:"${HERE}"/usr/games/:"${HERE}"/bin/:"${HERE}"/opt/steam/:"${HERE}"/sbin/:"${PATH}"
-export LD_LIBRARY_PATH=/lib/:/lib64/:/lib32/:/usr/lib/i386-linux-gnu/:/usr/lib/x86_64-linux-gnu/:"${HERE}"/usr/lib/:"${HERE}"/lib/:"${LD_LIBRARY_PATH}"
+export PATH=/usr/bin/:"${HERE}"/usr/bin/:"${HERE}"/usr/sbin/:"${HERE}"/usr/games/:"${HERE}"/bin/:"${HERE}"/sbin/:"${PATH}"
+export LD_LIBRARY_PATH=/lib/:/lib64/:/lib32/:/usr/lib/i386-linux-gnu/:/usr/lib/x86_64-linux-gnu/:"${HERE}"/usr/lib/:"${HERE}"/lib/:"${HERE}"/lib32/:"${HERE}"/usr/lib32/:"${LD_LIBRARY_PATH}"
 export XDG_DATA_DIRS=/usr/share/:"${HERE}"/usr/share/:"${XDG_DATA_DIRS}"
 EXEC=$(grep -e '^Exec=.*' "${HERE}"/*.desktop | head -n 1 | cut -d "=" -f 2- | sed -e 's|%.||g')
 exec ${EXEC} "$@"
 EOF
+	
+# MADE THE APPRUN EXECUTABLE
 chmod a+x ./$APP/$APP.AppDir/AppRun
 
 sed -i 's#Exec=/usr/bin/steam#Exec=steam#' ./$APP/$APP.AppDir/steam.desktop
@@ -58,10 +82,11 @@ sed -i 's/PrefersNonDefaultGPU/X-PrefersNonDefaultGPU/' ./$APP/$APP.AppDir/steam
 # ...EXPORT THE APPDIR TO AN APPIMAGE!
 ARCH=x86_64 ./appimagetool -n ./$APP/$APP.AppDir > /dev/null 2>&1
 cd ..;
-mv ./tmp/*.AppImage ./Steam-$(date +"%Y%m%d%H%M")-x86_64.AppImage
+#mv ./tmp/*.AppImage ./Steam-$(date +"%Y%m%d%H%M")-x86_64.AppImage
+mv ./tmp/*.AppImage ./Steam-x86_64.AppImage
 
 echo "
 
  Steam is provided by https://store.steampowered.com
   
-";
+"
