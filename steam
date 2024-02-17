@@ -33,8 +33,7 @@ ingredients:
   sources:
     - deb http://ftp.debian.org/debian/ oldstable main contrib non-free
   packages:
-    - steam
-    - libc6-i386" >> recipe.yml
+    - steam" >> recipe.yml
 
 
 # DOWNLOAD ALL THE NEEDED PACKAGES AND COMPILE THE APPDIR
@@ -56,7 +55,7 @@ HERE="$(dirname "$(readlink -f "${0}")")"
 export UNION_PRELOAD="${HERE}"
 #export LD_PRELOAD="${HERE}"/libunionpreload.so
 export PATH=/usr/bin/:"${HERE}"/usr/bin/:"${HERE}"/usr/sbin/:"${HERE}"/usr/games/:"${HERE}"/bin/:"${HERE}"/sbin/:"${PATH}"
-export LD_LIBRARY_PATH=/lib/:/lib64/:/lib32/:/usr/lib/i386-linux-gnu/:/usr/lib/x86_64-linux-gnu/:"${HERE}"/usr/lib/:"${HERE}"/lib/:"${HERE}"/lib32/:"${HERE}"/usr/lib32/:"${LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH=/lib/:/lib64/:/lib32/:/usr/lib/i386-linux-gnu/:/usr/lib/x86_64-linux-gnu/:"${HERE}"/usr/lib/:"${HERE}"/lib/:"${HERE}"/lib32/:"${HERE}"/usr/lib32/:"${HERE}"/lib/i386-linux-gnu/:"${LD_LIBRARY_PATH}"
 export XDG_DATA_DIRS=/usr/share/:"${HERE}"/usr/share/:"${XDG_DATA_DIRS}"
 EXEC=$(grep -e '^Exec=.*' "${HERE}"/*.desktop | head -n 1 | cut -d "=" -f 2- | sed -e 's|%.||g')
 exec ${EXEC} "$@"
@@ -83,8 +82,8 @@ sed -i 's/PrefersNonDefaultGPU/X-PrefersNonDefaultGPU/' ./$APP/$APP.AppDir/steam
 # ...EXPORT THE APPDIR TO AN APPIMAGE!
 ARCH=x86_64 ./appimagetool -n ./$APP/$APP.AppDir > /dev/null 2>&1
 cd ..;
-#mv ./tmp/*.AppImage ./Steam-$(date +"%Y%m%d%H%M")-x86_64.AppImage
-mv ./tmp/*.AppImage ./Steam-x86_64.AppImage
+mv ./tmp/*.AppImage ./Steam-$(date +"%Y%m%d%H%M")-x86_64.AppImage
+#mv ./tmp/*.AppImage ./Steam-x86_64.AppImage
 
 echo "
 
