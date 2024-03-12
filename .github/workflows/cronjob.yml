@@ -2,11 +2,12 @@ name: Github Action with a cronjob trigger
 on:
   schedule:
     - cron: "0 0 * * *"
-
+permissions:
+  actions: write
 jobs:
   cronjob-based-github-action:
     name: Cronjob based github action
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: gautamkrishnar/keepalive-workflow@v1 # using the workflow with default settings
+      - uses: actions/checkout@v4
+      - uses: gautamkrishnar/keepalive-workflow@v2
