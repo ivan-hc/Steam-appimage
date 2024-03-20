@@ -11,7 +11,7 @@ if test -f ./appimagetool; then
 	echo " appimagetool already exists" 1> /dev/null
 else
 	echo " Downloading appimagetool..."
-	wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool
+	wget -q $(wget -q https://api.github.com/repos/probonopd/go-appimage/releases -O - | grep -v zsync | grep -i continuous | grep -i appimagetool | grep -i x86_64 | grep browser_download_url | cut -d '"' -f 4 | head -1) -O appimagetool
 fi
 if test -f ./pkg2appimage; then
 	echo " pkg2appimage already exists" 1> /dev/null
@@ -95,7 +95,7 @@ sed -i 's/PrefersNonDefaultGPU/X-PrefersNonDefaultGPU/' ./$APP/$APP.AppDir/steam
 #tar xf data.tar.xz -C ./$APP/$APP.AppDir/
 
 # ...EXPORT THE APPDIR TO AN APPIMAGE!
-ARCH=x86_64 ./appimagetool -n ./$APP/$APP.AppDir > /dev/null 2>&1
+ARCH=x86_64 VERSION=$(./appimagetool -v | grep -o '[[:digit:]]*') ./appimagetool -s ./$APP/$APP.AppDir > /dev/null 2>&1
 cd ..;
 #mv ./tmp/*.AppImage ./Steam-$(date +"%Y%m%d%H%M")-x86_64.AppImage
 mv ./tmp/*.AppImage ./
