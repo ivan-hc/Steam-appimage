@@ -97,8 +97,8 @@ sed -i 's/PrefersNonDefaultGPU/X-PrefersNonDefaultGPU/' ./$APP/$APP.AppDir/steam
 # ...EXPORT THE APPDIR TO AN APPIMAGE!
 ARCH=x86_64 VERSION=$(./appimagetool -v | grep -o '[[:digit:]]*') ./appimagetool -s ./$APP/$APP.AppDir > /dev/null 2>&1
 cd ..;
-#mv ./tmp/*.AppImage ./Steam-$(date +"%Y%m%d%H%M")-x86_64.AppImage
-mv ./tmp/*.AppImage ./
+mv ./tmp/*.AppImage ./Steam-$(date +"%Y%m%d%H%M")-x86_64.AppImage
+#mv ./tmp/*.AppImage ./
 
 echo "
 
