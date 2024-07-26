@@ -31,8 +31,8 @@ Currently, the AppImage I produced contains the following structure:
 |---- conty.sh
 ```
 1. The AppRun is the core script of the AppImage
-2. The .desktop file of Virtualbox
-3. The icon of Virtualbox
+2. The .desktop file of Steam
+3. The icon of Steam
 4. The Arch Linux container named "conty.sh", it contains Steam.
 
 Points 1, 2 and 3 are the essential elements of any AppImage.
@@ -48,7 +48,7 @@ This is what each file of my workflow is ment for:
 
 Files 1, 2, 3 and 4 come from my fork of https://github.com/Kron4ek/Conty
 
-Files 1, 2 and 3 are a mod of the original ones to made them smaller and with only what its needed to made VirtualBox work.
+Files 1, 2 and 3 are a mod of the original ones to made them smaller and with only what its needed to made Steam work.
 
 To learn more about "Conty", to download more complete builds or to learn more on how to create your own, visit the official repository of the project:
 
