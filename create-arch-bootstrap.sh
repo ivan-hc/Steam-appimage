@@ -33,8 +33,7 @@ devel_pkgs="base-devel"
 # packages from the Chaotic-AUR repo
 export packagelist="${audio_pkgs} ${video_pkgs} ${wine_pkgs} ${devel_pkgs} \
 	ttf-dejavu ttf-liberation steam xorg-xwayland qt6-wayland wayland \
-	lib32-wayland qt5-wayland gamescope gamemode lib32-gamemode mangohud \
-	lib32-mangohud zenity-gtk3"
+	lib32-wayland qt5-wayland gamescope gamemode lib32-gamemode zenity-gtk3"
 
 # If you want to install AUR packages, specify them in this variable
 export aur_packagelist="glibc-eac-bin lib32-glibc-eac-bin"
