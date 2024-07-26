@@ -1,8 +1,72 @@
-This repository provides the script to create an experimental portable version of Steam and an AppImage package ready to be tested each time we improve it.
+Unofficial AppImage of Steam built on top of "Conty", the portable Arch Linux container that runs everywhere.
 
-It is built from the official .deb package, so it works like a standalone binary file.
+This includes 32bit libraries needed to run Steam, also it downloads and installs in ~/.local/share/Conty a portable version of Nvidia drivers if needed.
 
-# NOTE: requires 32-bit libraries installed on your system!
+---------------------------------
+
+### How it works
+
+1. Download the AppImage from https://github.com/ivan-hc/Steam-appimage/releases/latest
+2. Made it executable
+```
+chmod a+x ./*.AppImage
+```
+3. Run it, do this the first time from terminal, since the internal "Conty" script may detect if you need Nvidia drivers for your GPU
+```
+./*.AppImage
+```
+this may need seconds before you can use Steam.
+
+This AppImage does NOT require libfuse2, being it a new generation one.
+
+---------------------------------
+
+### How to build it
+
+Currently, the AppImage I produced contains the following structure:
+```
+|---- AppRun
+|---- steam.desktop
+|---- steam.png
+|---- conty.sh
+```
+1. The AppRun is the core script of the AppImage
+2. The .desktop file of Virtualbox
+3. The icon of Virtualbox
+4. The Arch Linux container named "conty.sh", it contains Steam.
+
+Points 1, 2 and 3 are the essential elements of any AppImage.
+
+The script "conty.sh" (4) is the big one among the elements of this AppImage.
+
+This is what each file of my workflow is ment for:
+1. [create-arch-bootstrap.sh](https://github.com/ivan-hc/Steam-appimage/blob/main/create-arch-bootstrap.sh) creates an Arch Linux chroot, where Steam is installed. This is the first script to be used ("root" required);
+2. [create-conty.sh](https://github.com/ivan-hc/Steam-appimage/blob/main/create-conty.sh) is the second script used in this process, it converts the Arch Linux chroot created by "create-arch-bootstrap.sh" into a big script named "conty.sh", that includes "conty-start.sh";
+3. [conty-start.sh](https://github.com/ivan-hc/Steam-appimage/blob/main/conty-start.sh) is the script responsible of startup inizialization processes to made Conty work. It includes a function that detects the version of the Nvidia drivers needed, if they are needed, the script downloads and installs them in ~/.local/share/Conty. Also it is responsible of full integration of Conty with the host system, using "bubblewrap;
+4. [utils_dwarfs.tar.gz](https://github.com/ivan-hc/Steam-appimage/blob/main/utils_dwarfs.tar.gz) contains "dwarfs", a set of tools similar to squashfs to compress filesystems, and it is needed to compress "conty.sh" as much as possible;
+5. [steam-conty-builder.sh](https://github.com/ivan-hc/Steam-appimage/blob/main/steam-conty-builder.sh) is a script i wrote to pundle "conty.sh" near the AppRun, the .desktop file and the icon to convert everything into an AppImage. It is ment to be used in github actions.
+
+Files 1, 2, 3 and 4 come from my fork of https://github.com/Kron4ek/Conty
+
+Files 1, 2 and 3 are a mod of the original ones to made them smaller and with only what its needed to made VirtualBox work.
+
+To learn more about "Conty", to download more complete builds or to learn more on how to create your own, visit the official repository of the project:
+
+https://github.com/Kron4ek/Conty
+--------------
+
+---------------------------------
+
+## Known issues
+
+### ◆ Very slow first startup
+At the first start, if necessary, the drivers for your video card will be downloaded, via Conty (see screenshot above). This may take several seconds or even minutes. This behaviour will only be noticed if when you first start it, you launch Steam from the terminal instead of using the launcher.
+
+---------------------------------
+
+## Credits
+
+- Conty https://github.com/Kron4ek/Conty
 
 ------------------------------------------------------------------------
 
