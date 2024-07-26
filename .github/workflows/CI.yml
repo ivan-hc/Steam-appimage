@@ -1,4 +1,4 @@
-name: CI
+name: Release Steam Appimage
 concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
@@ -14,13 +14,14 @@ jobs:
 
     - name: build
       run: |
-        sudo apt update && sudo apt install libfuse2
-        wget https://raw.githubusercontent.com/ivan-hc/Steam-appimage/main/steam
-        chmod a+x ./steam
-        ./steam
+        APP=steam
+        chmod +x create-arch-bootstrap.sh create-conty.sh "$APP"-conty-builder.sh
+        sudo ./create-arch-bootstrap.sh && ./create-conty.sh
+        mkdir -p tmp/"$APP".AppDir
+        mv ./conty.sh tmp/"$APP".AppDir/ || exit 1
+        ./"$APP"-conty-builder.sh
         mkdir dist
         mv *AppImage dist/
-
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
@@ -29,6 +30,7 @@ jobs:
         
   release:
       needs: [build]
+      permissions: write-all
       runs-on: ubuntu-latest
 
       steps:
