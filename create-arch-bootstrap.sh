@@ -375,7 +375,13 @@ run_in_chroot pacman -Q > "${bootstrap}"/pkglist.x86_64.txt
 
 # Use locale from host
 run_in_chroot rm -f "${bootstrap}"/etc/locale.conf
-run_in_chroot sed -i 's/LANG=${LANG:-C}/LANG=$LANG/g' "${bootstrap}"/etc/profile.d/locale.sh
+run_in_chroot sed -i 's/LANG=${LANG:-C}/LANG=$LANG/g' /etc/profile.d/locale.sh
+
+# Remove bloatwares
+run_in_chroot rm -Rf /usr/include /usr/man
+
+# Check if the command we are interested in has been installed
+run_in_chroot "$(if ! command -v steam; then echo "Command not found, exiting." && exit 1; fi)"
 
 unmount_chroot
 
