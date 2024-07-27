@@ -59,7 +59,7 @@ https://github.com/Kron4ek/Conty
 
 ## Known issues
 
-### ◆ Very slow first startup
+### ◆ Very slow first startup for Nvidia users
 At the first start, if necessary, the drivers for your video card will be downloaded, via Conty (see screenshot above). This may take several seconds or even minutes. This behaviour will only be noticed if when you first start it, you launch Steam from the terminal instead of using the launcher.
 
 ---------------------------------
