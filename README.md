@@ -4,6 +4,15 @@ This includes 32bit libraries needed to run Steam, also it downloads and install
 
 ---------------------------------
 
+### Features
+
+- Patched EAC-Glibc
+- Screensaver fix (from release v1.0.0.79-2-1 of this Steam AppImage) 
+- Uses zenity-gt3 to prevent broken theme issues of the gtk4 version
+- Can work on musl distros
+
+---------------------------------
+
 ### How it works
 
 1. Download the AppImage from https://github.com/ivan-hc/Steam-appimage/releases/latest
