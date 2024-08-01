@@ -366,7 +366,7 @@ fi
 #run_in_chroot locale-gen
 
 # Remove unneeded packages
-run_in_chroot pacman -Qdtq | pacman --noconfirm -Rsn -
+run_in_chroot pacman -Qdtq | run_in_chroot pacman --noconfirm -Rsn -
 run_in_chroot pacman --noconfirm -Rsu base-devel meson mingw-w64-gcc cmake gcc gtk4
 run_in_chroot pacman --noconfirm -Rdd wine-staging
 run_in_chroot pacman --noconfirm -Scc
