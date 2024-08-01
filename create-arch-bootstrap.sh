@@ -12,7 +12,7 @@ audio_pkgs="alsa-lib lib32-alsa-lib libpulse \
 video_pkgs="mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-intel \
 	lib32-vulkan-intel vulkan-icd-loader lib32-vulkan-icd-loader vulkan-mesa-layers \
 	lib32-vulkan-mesa-layers libva-mesa-driver lib32-libva-mesa-driver \
-	libva-intel-driver lib32-libva-intel-driver intel-media-driver lib32-mesa-utils"
+	libva-intel-driver lib32-libva-intel-driver intel-media-driver"
 
 wine_pkgs="giflib lib32-giflib libpng lib32-libpng libldap lib32-libldap \
 	gnutls lib32-gnutls mpg123 lib32-mpg123 \
@@ -20,7 +20,7 @@ wine_pkgs="giflib lib32-giflib libpng lib32-libpng libldap lib32-libldap \
 	alsa-lib lib32-alsa-lib libjpeg-turbo \
 	lib32-libjpeg-turbo libxcomposite lib32-libxcomposite libxinerama \
 	libxslt lib32-libxslt libva lib32-libva \
-	vulkan-icd-loader lib32-vulkan-icd-loader sdl2 lib32-sdl2 \
+	vulkan-icd-loader lib32-vulkan-icd-loader \
 	vkd3d lib32-vkd3d libgphoto2 ffmpeg gst-plugins-good \
 	gst-plugins-ugly gst-plugins-base lib32-gst-plugins-good \
 	lib32-gst-plugins-base gst-libav wget gst-plugin-pipewire"
@@ -33,8 +33,7 @@ devel_pkgs="base-devel"
 # packages from the Chaotic-AUR repo
 export packagelist="${audio_pkgs} ${video_pkgs} ${wine_pkgs} ${devel_pkgs} \
 	which ttf-dejavu ttf-liberation steam xorg-xwayland qt6-wayland wayland \
-	lib32-wayland qt5-wayland gamescope gamemode lib32-gamemode mangohud \
-	lib32-mangohud"
+	lib32-wayland gamescope gamemode lib32-gamemode mangohud lib32-mangohud"
 
 # If you want to install AUR packages, specify them in this variable
 export aur_packagelist="glibc-eac-bin lib32-glibc-eac-bin zenity-gtk3 steam-screensaver-fix"
@@ -366,9 +365,9 @@ fi
 #run_in_chroot locale-gen
 
 # Remove unneeded packages
-run_in_chroot pacman -Qdtq | run_in_chroot pacman --noconfirm -Rsn -
-run_in_chroot pacman --noconfirm -Rsu base-devel meson mingw-w64-gcc cmake gcc gtk4
+run_in_chroot pacman --noconfirm -Rsudd base-devel meson mingw-w64-gcc cmake gcc gtk4
 run_in_chroot pacman --noconfirm -Rdd wine-staging
+run_in_chroot pacman -Qdtq | run_in_chroot pacman --noconfirm -Rsn -
 run_in_chroot pacman --noconfirm -Scc
   
 
