@@ -383,7 +383,7 @@ run_in_chroot bash -c 'find "${bootstrap}"/usr/share/doc/* -not -iname "*steam*"
 run_in_chroot bash -c 'find "${bootstrap}"/usr/share/locale/*/*/* -not -iname "*steam*" -a -not -name "." -delete'
 
 # Check if the command we are interested in has been installed
-if ! run_in_chroot which steam; then echo "Command not found, exiting." && exit 1; fi
+if ! run_in_chroot which steam-screensaver-fix-runtime; then echo "Command not found, exiting." && exit 1; fi
 
 # Exit chroot
 rm -rf "${bootstrap}"/home/aur
