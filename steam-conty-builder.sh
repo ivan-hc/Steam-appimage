@@ -314,7 +314,7 @@ cat >> ./AppRun << 'EOF'
 #!/bin/sh
 HERE="$(dirname "$(readlink -f "${0}")")"
 export UNION_PRELOAD="${HERE}"
-"${HERE}"/conty.sh steam "$@"
+"${HERE}"/conty.sh steam-screensaver-fix-runtime "$@"
 EOF
 chmod a+x ./AppRun
 
