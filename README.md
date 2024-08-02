@@ -2,6 +2,18 @@ Unofficial AppImage of Steam built on top of "Conty", the portable Arch Linux co
 
 This includes 32bit libraries needed to run Steam, also it downloads and installs in ~/.local/share/Conty a portable version of Nvidia drivers if needed.
 
+
+---------------------------------
+
+### Features
+
+- patched EAC-Glibc
+- steam-screensaver-fix which fixes the issue that Steam disables the screensaver even when no game is running
+- zenity-gtk3 to prevent the issue of the gtk4 version having broken theme
+- bundled its own mesa version from Arch Linus, so you don't have to deal with outdated mesa versions causing issues if you are not using Arch
+- "sudo" is not required, no need enable 32 bit repo, no need to install flatpak or snap, it should even run on musl distros
+- being it an AppImage, it can use a directory with its same name and the extension .home to get rid of all the clutter that Steam puts in $HOME
+
 ---------------------------------
 
 ### How it works
