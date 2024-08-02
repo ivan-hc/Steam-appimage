@@ -365,7 +365,7 @@ fi
 #run_in_chroot locale-gen
 
 # Remove unneeded packages
-run_in_chroot pacman --noconfirm -Rsudd base-devel meson mingw-w64-gcc cmake gcc gtk4
+run_in_chroot pacman --noconfirm -Rsu base-devel meson mingw-w64-gcc cmake gcc gtk4
 run_in_chroot pacman --noconfirm -Rdd wine-staging
 run_in_chroot pacman -Qdtq | run_in_chroot pacman --noconfirm -Rsn -
 run_in_chroot pacman --noconfirm -Scc
@@ -379,7 +379,8 @@ run_in_chroot rm -f "${bootstrap}"/etc/locale.conf
 run_in_chroot sed -i 's/LANG=${LANG:-C}/LANG=$LANG/g' /etc/profile.d/locale.sh
 
 # Remove bloatwares
-run_in_chroot rm -Rf /usr/include /usr/man
+run_in_chroot pacman --noconfirm -Rsndd gcc
+run_in_chroot rm -Rf /usr/include /usr/share/man /usr/share/gtk-doc/* /usr/lib/gcc /usr/bin/gcc*
 run_in_chroot bash -c 'find "${bootstrap}"/usr/share/doc/* -not -iname "*steam*" -a -not -name "." -delete'
 run_in_chroot bash -c 'find "${bootstrap}"/usr/share/locale/*/*/* -not -iname "*steam*" -a -not -name "." -delete'
 
