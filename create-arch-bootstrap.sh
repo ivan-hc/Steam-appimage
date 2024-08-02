@@ -32,7 +32,7 @@ devel_pkgs="base-devel"
 # Apart from packages from the official Arch repos, you can also specify
 # packages from the Chaotic-AUR repo
 export packagelist="${audio_pkgs} ${video_pkgs} ${wine_pkgs} ${devel_pkgs} \
-	which ttf-dejavu ttf-liberation steam xorg-xwayland qt6-wayland wayland \
+	which ttf-dejavu ttf-liberation steam xorg-xwayland wayland \
 	lib32-wayland gamescope gamemode lib32-gamemode mangohud lib32-mangohud"
 
 # If you want to install AUR packages, specify them in this variable
@@ -380,7 +380,7 @@ run_in_chroot sed -i 's/LANG=${LANG:-C}/LANG=$LANG/g' /etc/profile.d/locale.sh
 
 # Remove bloatwares
 run_in_chroot pacman --noconfirm -Rsndd gcc
-run_in_chroot rm -Rf /usr/include /usr/share/man /usr/share/gtk-doc/* /usr/lib/gcc /usr/bin/gcc*
+run_in_chroot rm -Rf /usr/include /usr/share/man /usr/share/gtk-doc /usr/lib/gcc /usr/bin/gcc*
 run_in_chroot bash -c 'find "${bootstrap}"/usr/share/doc/* -not -iname "*steam*" -a -not -name "." -delete'
 run_in_chroot bash -c 'find "${bootstrap}"/usr/share/locale/*/*/* -not -iname "*steam*" -a -not -name "." -delete'
 
