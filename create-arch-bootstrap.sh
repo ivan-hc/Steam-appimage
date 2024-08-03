@@ -382,7 +382,7 @@ run_in_chroot sed -i 's/LANG=${LANG:-C}/LANG=$LANG/g' /etc/profile.d/locale.sh
 run_in_chroot pacman --noconfirm -Rsndd gcc
 run_in_chroot rm -Rf /usr/include /usr/share/man /usr/share/gtk-doc /usr/lib/gcc /usr/bin/gcc*
 run_in_chroot bash -c 'find "${bootstrap}"/usr/share/doc/* -not -iname "*steam*" -a -not -name "." -delete'
-run_in_chroot bash -c 'find "${bootstrap}"/usr/share/locale/*/*/* -not -iname "*steam*" -a -not -name "." -delete'
+#run_in_chroot bash -c 'find "${bootstrap}"/usr/share/locale/*/*/* -not -iname "*steam*" -a -not -name "." -delete'
 
 # Check if the command we are interested in has been installed
 if ! run_in_chroot which steam-screensaver-fix-runtime; then echo "Command not found, exiting." && exit 1; fi
