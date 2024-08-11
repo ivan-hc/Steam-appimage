@@ -6,8 +6,7 @@
 ########################################################################
 
 # Package groups
-audio_pkgs="alsa-lib lib32-alsa-lib libpulse \
-	lib32-libpulse jack2 lib32-jack2 pipewire lib32-pipewire"
+audio_pkgs="alsa-lib lib32-alsa-lib libpulse lib32-libpulse pipewire lib32-pipewire"
 
 video_pkgs="mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-intel \
 	lib32-vulkan-intel vulkan-icd-loader lib32-vulkan-icd-loader vulkan-mesa-layers \
@@ -379,7 +378,7 @@ run_in_chroot rm -f "${bootstrap}"/etc/locale.conf
 run_in_chroot sed -i 's/LANG=${LANG:-C}/LANG=$LANG/g' /etc/profile.d/locale.sh
 
 # Remove bloatwares
-run_in_chroot pacman --noconfirm -Rsndd gcc
+run_in_chroot pacman --noconfirm -Rsndd gcc yay
 run_in_chroot rm -Rf /usr/include /usr/share/man /usr/share/gtk-doc /usr/lib/gcc /usr/bin/gcc*
 run_in_chroot bash -c 'find "${bootstrap}"/usr/share/doc/* -not -iname "*steam*" -a -not -name "." -delete'
 run_in_chroot bash -c 'find "${bootstrap}"/usr/share/locale/*/*/* -not -iname "*steam*" -a -not -name "." -delete'
