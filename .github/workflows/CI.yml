@@ -14,6 +14,7 @@ jobs:
 
     - name: build
       run: |
+        sudo apt install desktop-file-utils
         APP=steam
         wget -q https://raw.githubusercontent.com/ivan-hc/Conty/master/create-conty.sh
         wget -q https://raw.githubusercontent.com/ivan-hc/Conty/master/conty-start.sh
@@ -23,7 +24,7 @@ jobs:
         mv ./conty.sh tmp/"$APP".AppDir/ || exit 1
         ./"$APP"-conty-builder.sh
         mkdir dist
-        mv *AppImage dist/
+        mv *AppImage* dist/
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:

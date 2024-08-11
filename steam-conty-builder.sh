@@ -11,7 +11,7 @@ if test -f ./appimagetool; then
 	echo " appimagetool already exists" 1> /dev/null
 else
 	echo " Downloading appimagetool..."
-	wget -q "$(wget -q https://api.github.com/repos/probonopd/go-appimage/releases -O - | sed 's/"/ /g; s/ /\n/g' | grep -o 'https.*continuous.*tool.*86_64.*mage$')" -O appimagetool
+	wget -q "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage" -O appimagetool
 fi
 chmod a+x ./appimagetool
 
@@ -334,7 +334,10 @@ fi
 cd .. || exit 1
 
 # EXPORT THE APPDIR TO AN APPIMAGE
-VERSION=$(curl -Ls https://archlinux.org/packages/multilib/x86_64/steam/ | grep steam | head -1 | tr ' ' '\n' | grep "^[0-9]")
-ARCH=x86_64 VERSION="$VERSION-2" ./appimagetool -s ./"$APP".AppDir
-cd .. && mv ./tmp/*.AppImage ./ || exit 1
+export VERSION="$(curl -Ls https://archlinux.org/packages/multilib/x86_64/steam/ | grep steam | head -1 | tr ' ' '\n' | grep "^[0-9]")"
+export ARCH=x86_64
+./appimagetool --comp zstd --mksquashfs-opt -Xcompression-level --mksquashfs-opt 1 \
+	-u "gh-releases-zsync|$GITHUB_REPOSITORY_OWNER|Steam-appimage|continuous|*x86_64.AppImage.zsync" \
+	./"$APP".AppDir Steam-"$VERSION-3"-"$ARCH".AppImage 
+cd .. && mv ./tmp/*.AppImage* ./ || exit 1
 
