@@ -14,6 +14,7 @@ jobs:
 
     - name: build
       run: |
+        sudo apt install desktop-file-utils
         APP=steam
         wget -q https://raw.githubusercontent.com/ivan-hc/Conty/master/create-conty.sh
         wget -q https://raw.githubusercontent.com/ivan-hc/Conty/master/conty-start.sh
