@@ -23,7 +23,7 @@ jobs:
         mv ./conty.sh tmp/"$APP".AppDir/ || exit 1
         ./"$APP"-conty-builder.sh
         mkdir dist
-        mv *AppImage dist/
+        mv *AppImage* dist/
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
