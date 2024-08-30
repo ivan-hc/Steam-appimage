@@ -31,8 +31,8 @@ devel_pkgs="base-devel"
 # Apart from packages from the official Arch repos, you can also specify
 # packages from the Chaotic-AUR repo
 export packagelist="${audio_pkgs} ${video_pkgs} ${wine_pkgs} ${devel_pkgs} \
-	which ttf-dejavu ttf-liberation steam xorg-xwayland wayland yad \
-	lib32-wayland gamescope gamemode lib32-gamemode mangohud lib32-mangohud"
+	which ttf-dejavu ttf-liberation steam xorg-xwayland wayland yad git xdotool \
+	lib32-wayland gamescope gamemode lib32-gamemode mangohud lib32-mangohud xorg-xwininfo"
 
 # If you want to install AUR packages, specify them in this variable
 export aur_packagelist="glibc-eac-bin lib32-glibc-eac-bin zenity-gtk3 steam-screensaver-fix"
