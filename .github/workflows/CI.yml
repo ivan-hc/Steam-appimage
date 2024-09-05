@@ -28,7 +28,7 @@ jobs:
         mkdir dist
         mv *AppImage* dist/
     - name: Upload artifact
-      uses: actions/upload-artifact@v1.0.0
+      uses: actions/upload-artifact@v4.4.0
       with:
         name: Steam-x86_64.AppImage
         path: 'dist'
@@ -39,7 +39,7 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
-        - uses: actions/download-artifact@v1
+        - uses: actions/download-artifact@v4.1.8
           with:
             name: Steam-x86_64.AppImage
 
@@ -51,5 +51,5 @@ jobs:
             prerelease: false
             draft: false
             files: |
-              Steam-x86_64.AppImage
+              *.AppImage
             repo_token: ${{ secrets.GITHUB_TOKEN }}
