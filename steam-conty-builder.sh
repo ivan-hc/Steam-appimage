@@ -21,6 +21,7 @@ mkdir -p "$APP".AppDir && cd "$APP".AppDir || exit 1
 # ICON
 if ! test -f ./*.png; then
 	wget -q https://portable-linux-apps.github.io/icons/steam.png
+	cp ./steam.png ./.DirIcon
 fi
 
 # LAUNCHER
