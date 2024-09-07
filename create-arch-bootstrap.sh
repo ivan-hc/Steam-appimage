@@ -397,6 +397,8 @@ rm -rf "${bootstrap}"/usr/lib/systemd
 rm -rf "${bootstrap}"/usr/share/info
 rm -rf "${bootstrap}"/usr/share/gir-1.0
 rm -rf "${bootstrap}"/var/lib/pacman/*
+strip --strip-debug "${bootstrap}"/usr/lib/*
+strip --strip-unneeded "${bootstrap}"/usr/bin/*
 
 # Check if the command we are interested in has been installed
 if ! run_in_chroot which steam-screensaver-fix-runtime; then echo "Command not found, exiting." && exit 1; fi
