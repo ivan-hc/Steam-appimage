@@ -378,7 +378,7 @@ run_in_chroot rm -f "${bootstrap}"/etc/locale.conf
 run_in_chroot sed -i 's/LANG=${LANG:-C}/LANG=$LANG/g' /etc/profile.d/locale.sh
 
 # Remove bloatwares
-run_in_chroot pacman --noconfirm -Rsndd gcc yay
+run_in_chroot pacman --noconfirm -Rsndd gcc yay pacman systemd
 run_in_chroot rm -Rf /usr/include /usr/share/man /usr/share/gtk-doc /usr/lib/gcc /usr/bin/gcc*
 run_in_chroot bash -c 'find "${bootstrap}"/usr/share/doc/* -not -iname "*steam*" -a -not -name "." -delete'
 run_in_chroot bash -c 'find "${bootstrap}"/usr/share/locale/*/*/* -not -iname "*steam*" -a -not -name "." -delete'
@@ -393,6 +393,10 @@ rm -rf "${bootstrap}"/usr/lib32/libgo.so*
 rm -rf "${bootstrap}"/usr/lib32/libgphobos.so*
 rm -rf "${bootstrap}"/usr/share/ibus/dicts/emoji*
 rm -rf "${bootstrap}"/usr/share/perl*
+rm -rf "${bootstrap}"/usr/lib/systemd
+rm -rf "${bootstrap}"/usr/share/info
+rm -rf "${bootstrap}"/usr/share/gir-1.0
+rm -rf "${bootstrap}"/var/lib/pacman/*
 
 # Check if the command we are interested in has been installed
 if ! run_in_chroot which steam-screensaver-fix-runtime; then echo "Command not found, exiting." && exit 1; fi
