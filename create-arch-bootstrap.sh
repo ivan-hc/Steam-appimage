@@ -366,7 +366,6 @@ fi
 # Remove unneeded packages
 run_in_chroot pacman --noconfirm -Rsu base-devel meson mingw-w64-gcc cmake gcc gtk4
 run_in_chroot pacman --noconfirm -Rdd wine-staging
-run_in_chroot pacman -Qdtq | run_in_chroot pacman --noconfirm -Rsn -
 run_in_chroot pacman --noconfirm -Scc
   
 
@@ -379,6 +378,8 @@ run_in_chroot sed -i 's/LANG=${LANG:-C}/LANG=$LANG/g' /etc/profile.d/locale.sh
 
 # Remove bloatwares
 run_in_chroot pacman --noconfirm -Rsndd gcc yay pacman systemd
+run_in_chroot pacman -Qdtq | run_in_chroot pacman --noconfirm -Rsn -
+run_in_chroot pacman --noconfirm -Rsndd pacman
 run_in_chroot rm -Rf /usr/include /usr/share/man /usr/share/gtk-doc /usr/lib/gcc /usr/bin/gcc*
 run_in_chroot bash -c 'find "${bootstrap}"/usr/share/doc/* -not -iname "*steam*" -a -not -name "." -delete'
 run_in_chroot bash -c 'find "${bootstrap}"/usr/share/locale/*/*/* -not -iname "*steam*" -a -not -name "." -delete'
@@ -395,9 +396,11 @@ rm -rf "${bootstrap}"/usr/share/ibus/dicts/emoji*
 rm -rf "${bootstrap}"/usr/share/perl*
 rm -rf "${bootstrap}"/usr/lib/systemd
 rm -rf "${bootstrap}"/usr/share/info
+rm -rf "${bootstrap}"/usr/share/help/*
 rm -rf "${bootstrap}"/usr/share/gir-1.0
 rm -rf "${bootstrap}"/var/lib/pacman/*
 strip --strip-debug "${bootstrap}"/usr/lib/*
+strip --strip-debug "${bootstrap}"/usr/lib32/*
 strip --strip-unneeded "${bootstrap}"/usr/bin/*
 
 # Check if the command we are interested in has been installed
