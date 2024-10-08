@@ -408,9 +408,8 @@ rm -f "${bootstrap}"/usr/bin/yay
 rm -f "${bootstrap}"/usr/bin/git*
 rm -f "${bootstrap}"/usr/bin/systemd*
 rm -f "${bootstrap}"/usr/bin/pacman*
-strip --strip-debug "${bootstrap}"/usr/lib/* 2>/dev/null
-strip --strip-debug "${bootstrap}"/usr/lib32/* 2>/dev/null
-strip --strip-unneeded "${bootstrap}"/usr/bin/* 2>/dev/null
+find "${bootstrap}"/usr -type f -regex '.*\.so.*' -exec strip --strip-debug {} \;
+find "${bootstrap}"/usr/bin -type f ! -regex '.*\.so.*' -exec strip --strip-unneeded {} \;
 
 # Check if the command we are interested in has been installed
 if ! run_in_chroot which steam-screensaver-fix-runtime; then echo "Command not found, exiting." && exit 1; fi
