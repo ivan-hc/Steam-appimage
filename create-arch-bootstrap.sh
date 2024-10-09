@@ -383,13 +383,11 @@ run_in_chroot pacman -Q > "${bootstrap}"/pkglist.x86_64.txt
 run_in_chroot rm -Rf /usr/include /usr/share/man /usr/share/gtk-doc /usr/lib/gcc /usr/bin/gcc*
 run_in_chroot bash -c 'find "${bootstrap}"/usr/share/doc/* -not -iname "*steam*" -a -not -name "." -delete'
 run_in_chroot bash -c 'find "${bootstrap}"/usr/share/locale/*/*/* -not -iname "*steam*" -a -not -name "." -delete'
-rm -rf "${bootstrap}"/usr/lib/*.a
 rm -rf "${bootstrap}"/usr/lib/libgo.so*
 rm -rf "${bootstrap}"/usr/lib/libgphobos.so*
 rm -rf "${bootstrap}"/usr/lib/libjavascript*
 rm -rf "${bootstrap}"/usr/lib/libwebkit*
 rm -rf "${bootstrap}"/usr/lib/perl*
-rm -rf "${bootstrap}"/usr/lib32/*.a
 rm -rf "${bootstrap}"/usr/lib32/libgo.so*
 rm -rf "${bootstrap}"/usr/lib32/libgphobos.so*
 rm -rf "${bootstrap}"/usr/share/ibus/dicts/emoji*
@@ -403,11 +401,13 @@ rm -rf "${bootstrap}"/usr/share/git*
 rm -rf "${bootstrap}"/usr/share/pacman
 rm -rf "${bootstrap}"/usr/share/help/*
 rm -rf "${bootstrap}"/usr/share/gir-1.0
+rm -rf "${bootstrap}"/usr/share/fonts/*
 rm -rf "${bootstrap}"/var/lib/pacman/*
 rm -f "${bootstrap}"/usr/bin/yay
 rm -f "${bootstrap}"/usr/bin/git*
 rm -f "${bootstrap}"/usr/bin/systemd*
 rm -f "${bootstrap}"/usr/bin/pacman*
+find "${bootstrap}"/usr/lib "${bootstrap}"/usr/lib32 -type f -regex '.*\.a' -exec rm -f {} \;
 find "${bootstrap}"/usr -type f -regex '.*\.so.*' -exec strip --strip-debug {} \;
 find "${bootstrap}"/usr/bin -type f ! -regex '.*\.so.*' -exec strip --strip-unneeded {} \;
 
