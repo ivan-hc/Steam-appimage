@@ -421,6 +421,11 @@ unmount_chroot
 # Clear pacman package cache
 rm -f "${bootstrap}"/var/cache/pacman/pkg/*
 
+# Use the patched bwrap to allow launching AppImages from conty
+echo "Using patched bubblewrap..."
+cp ./utils/bwrap "${bootstrap}"/usr/bin || exit 1
+chmod +x "${bootstrap}"/usr/bin/bwrap || exit 1
+
 # Create some empty files and directories
 # This is needed for bubblewrap to be able to bind real files/dirs to them
 # later in the conty-start.sh script
