@@ -20,7 +20,7 @@ jobs:
         APP=steam
         wget -q https://raw.githubusercontent.com/ivan-hc/Conty/master/create-conty.sh
         wget -q https://raw.githubusercontent.com/ivan-hc/Conty/master/conty-start.sh
-        wget -q https://github.com/ivan-hc/Conty/releases/download/utils/utils_dwarfs.tar.gz
+        wget -q https://github.com/Samueru-sama/Conty/releases/download/utils/utils_dwarfs.tar.gz
         chmod +x create-arch-bootstrap.sh create-conty.sh "$APP"-conty-builder.sh
         sudo ./create-arch-bootstrap.sh && ./create-conty.sh
         mkdir -p tmp/"$APP".AppDir
