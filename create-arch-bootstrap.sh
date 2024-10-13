@@ -421,6 +421,12 @@ unmount_chroot
 # Clear pacman package cache
 rm -f "${bootstrap}"/var/cache/pacman/pkg/*
 
+# Use the patched bwrap to allow launching AppImages from conty
+wget -q https://github.com/Samueru-sama/Conty/releases/download/utils/utils_dwarfs.tar.gz
+tar fx ./utils_dwarfs.tar.gz
+cp ./utils/bwrap "${bootstrap}"/usr/bin && rm -rf ./utils ./utils_dwarfs.tar.gz
+chmod +x "${bootstrap}"/usr/bin/bwrap
+
 # Create some empty files and directories
 # This is needed for bubblewrap to be able to bind real files/dirs to them
 # later in the conty-start.sh script
