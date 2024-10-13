@@ -22,6 +22,7 @@ jobs:
         wget -q https://raw.githubusercontent.com/ivan-hc/Conty/master/conty-start.sh
         wget -q https://github.com/Samueru-sama/Conty/releases/download/utils/utils_dwarfs.tar.gz
         chmod +x create-arch-bootstrap.sh create-conty.sh "$APP"-conty-builder.sh
+        tar fx ./utils_dwarfs.tar.gz
         sudo ./create-arch-bootstrap.sh && ./create-conty.sh
         mkdir -p tmp/"$APP".AppDir
         mv ./conty.sh tmp/"$APP".AppDir/ || exit 1
