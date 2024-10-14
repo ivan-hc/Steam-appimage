@@ -410,6 +410,7 @@ rm -f "${bootstrap}"/usr/bin/pacman*
 find "${bootstrap}"/usr/lib "${bootstrap}"/usr/lib32 -type f -regex '.*\.a' -exec rm -f {} \;
 find "${bootstrap}"/usr -type f -regex '.*\.so.*' -exec strip --strip-debug {} \;
 find "${bootstrap}"/usr/bin -type f ! -regex '.*\.so.*' -exec strip --strip-unneeded {} \;
+find "${bootstrap}"/usr/lib -type f -regex '.*\.pyc' -exec rm -f {} \;
 
 # Check if the command we are interested in has been installed
 if ! run_in_chroot which steam-screensaver-fix-runtime; then echo "Command not found, exiting." && exit 1; fi
