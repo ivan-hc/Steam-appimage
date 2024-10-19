@@ -14,15 +14,11 @@ video_pkgs="mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-intel \
 	libva-intel-driver lib32-libva-intel-driver intel-media-driver"
 
 wine_pkgs="giflib lib32-giflib libpng lib32-libpng libldap lib32-libldap \
-	gnutls lib32-gnutls mpg123 lib32-mpg123 \
-	v4l-utils lib32-v4l-utils libpulse lib32-libpulse \
-	alsa-lib lib32-alsa-lib libjpeg-turbo \
+	gnutls lib32-gnutls mpg123 lib32-mpg123 v4l-utils lib32-v4l-utils \
+	libpulse lib32-libpulse alsa-lib lib32-alsa-lib libjpeg-turbo \
 	lib32-libjpeg-turbo libxcomposite lib32-libxcomposite libxinerama \
-	libxslt lib32-libxslt libva lib32-libva \
-	vulkan-icd-loader lib32-vulkan-icd-loader \
-	vkd3d lib32-vkd3d libgphoto2 ffmpeg gst-plugins-good \
-	gst-plugins-ugly gst-plugins-base lib32-gst-plugins-good \
-	lib32-gst-plugins-base gst-libav wget gst-plugin-pipewire"
+	libxslt lib32-libxslt libva lib32-libva vkd3d lib32-vkd3d \
+	ffmpeg wget"
 
 devel_pkgs="base-devel"
 
@@ -31,8 +27,8 @@ devel_pkgs="base-devel"
 # Apart from packages from the official Arch repos, you can also specify
 # packages from the Chaotic-AUR repo
 export packagelist="${audio_pkgs} ${video_pkgs} ${wine_pkgs} ${devel_pkgs} \
-	which ttf-dejavu ttf-liberation steam xorg-xwayland wayland yad git xdotool \
-	lib32-wayland gamescope gamemode lib32-gamemode mangohud lib32-mangohud xorg-xwininfo"
+	which steam xorg-xwayland wayland lib32-wayland yad git xdotool \
+	gamescope gamemode lib32-gamemode mangohud lib32-mangohud xorg-xwininfo"
 
 # If you want to install AUR packages, specify them in this variable
 export aur_packagelist="glibc-eac-bin lib32-glibc-eac-bin zenity-gtk3 steam-screensaver-fix"
@@ -424,7 +420,8 @@ rm -f "${bootstrap}"/var/cache/pacman/pkg/*
 
 # Use the patched bwrap to allow launching AppImages from conty
 echo "Using patched bubblewrap..."
-cp ./utils/bwrap "${bootstrap}"/usr/bin || exit 1
+rm -f "${bootstrap}"/usr/bin/bwrap
+wget "https://bin.ajam.dev/x86_64_Linux/bwrap-patched" -O "${bootstrap}"/usr/bin/bwrap || exit 1
 chmod +x "${bootstrap}"/usr/bin/bwrap || exit 1
 
 # Create some empty files and directories
