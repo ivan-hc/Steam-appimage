@@ -403,6 +403,7 @@ rm -f "${bootstrap}"/usr/bin/yay
 rm -f "${bootstrap}"/usr/bin/git*
 rm -f "${bootstrap}"/usr/bin/systemd*
 rm -f "${bootstrap}"/usr/bin/pacman*
+rm -f "${bootstrap}"/usr/bin/mangoplot
 find "${bootstrap}"/usr/lib "${bootstrap}"/usr/lib32 -type f -regex '.*\.a' -exec rm -f {} \;
 find "${bootstrap}"/usr -type f -regex '.*\.so.*' -exec strip --strip-debug {} \;
 find "${bootstrap}"/usr/bin -type f ! -regex '.*\.so.*' -exec strip --strip-unneeded {} \;
