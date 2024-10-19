@@ -369,7 +369,7 @@ run_in_chroot rm -f "${bootstrap}"/etc/locale.conf
 run_in_chroot sed -i 's/LANG=${LANG:-C}/LANG=$LANG/g' /etc/profile.d/locale.sh
 
 # Remove bloatwares
-run_in_chroot pacman --noconfirm -Rsndd gcc yay systemd git autoconf automake
+run_in_chroot pacman --noconfirm -Rsndd gcc yay systemd git autoconf automake python-matplotlib python-numpy python-contourpy
 run_in_chroot pacman -Qdtq | run_in_chroot pacman --noconfirm -Rsn -
 
 # Generate a list of installed packages
@@ -403,6 +403,7 @@ rm -f "${bootstrap}"/usr/bin/yay
 rm -f "${bootstrap}"/usr/bin/git*
 rm -f "${bootstrap}"/usr/bin/systemd*
 rm -f "${bootstrap}"/usr/bin/pacman*
+rm -f "${bootstrap}"/usr/bin/mangoplot
 find "${bootstrap}"/usr/lib "${bootstrap}"/usr/lib32 -type f -regex '.*\.a' -exec rm -f {} \;
 find "${bootstrap}"/usr -type f -regex '.*\.so.*' -exec strip --strip-debug {} \;
 find "${bootstrap}"/usr/bin -type f ! -regex '.*\.so.*' -exec strip --strip-unneeded {} \;
