@@ -369,7 +369,7 @@ run_in_chroot rm -f "${bootstrap}"/etc/locale.conf
 run_in_chroot sed -i 's/LANG=${LANG:-C}/LANG=$LANG/g' /etc/profile.d/locale.sh
 
 # Remove bloatwares
-run_in_chroot pacman --noconfirm -Rsndd gcc yay systemd git autoconf automake
+run_in_chroot pacman --noconfirm -Rsndd gcc yay systemd git autoconf automake python-matplotlib python-numpy python-contourpy
 run_in_chroot pacman -Qdtq | run_in_chroot pacman --noconfirm -Rsn -
 
 # Generate a list of installed packages
