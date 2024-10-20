@@ -315,7 +315,7 @@ cat >> ./AppRun << 'EOF'
 #!/bin/sh
 HERE="$(dirname "$(readlink -f "${0}")")"
 export UNION_PRELOAD="${HERE}"
-"${HERE}"/conty.sh --cap-add CAP_SYS_ADMIN --bind-try /usr/share/fonts /usr/share/fonts -- steam-screensaver-fix-runtime "$@"
+"${HERE}"/conty.sh --bind-try /usr/share/fonts /usr/share/fonts -- steam-screensaver-fix-runtime "$@"
 EOF
 chmod a+x ./AppRun
 
