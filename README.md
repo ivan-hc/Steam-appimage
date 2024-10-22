@@ -13,6 +13,7 @@ This includes 32bit libraries needed to run Steam, also it downloads and install
 - Bundles its own mesa from Arch Linux, so you don't have to deal with [outdated mesa](https://www.reddit.com/r/yuzu/comments/11307f0/glitches_on_steam_deck_flatpak_version_dont/j8o6gsa/) versions causing issues.
 - "sudo" is not required, no need enable 32 bit repo, no need to install flatpak or snap, **it should even run on musl distros.**
 - Can use a [portable home](https://docs.appimage.org/user-guide/portable-mode.html), so you can avoid all the [mess that Steam leaves in $HOME](https://github.com/ValveSoftware/steam-for-linux/issues/1890) and no need to settle with a hardcoded `~/.var` or `~/snap` either.
+- Uses a patched bubblewrap that [allows](https://github.com/flathub/com.valvesoftware.Steam/issues/770) launching AppImages from Steam.
 
 ---------------------------------
 
