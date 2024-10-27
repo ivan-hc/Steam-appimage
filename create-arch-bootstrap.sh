@@ -6,7 +6,7 @@
 ########################################################################
 
 # Package groups
-audio_pkgs="alsa-lib lib32-alsa-lib libpulse lib32-libpulse pipewire lib32-pipewire"
+audio_pkgs="alsa-lib lib32-alsa-lib libpulse lib32-libpulse pipewire lib32-pipewire pipewire-alsa pipewire-pulse"
 
 video_pkgs="mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon vulkan-intel \
 	lib32-vulkan-intel vulkan-icd-loader lib32-vulkan-icd-loader vulkan-mesa-layers \
