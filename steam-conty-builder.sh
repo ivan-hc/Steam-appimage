@@ -339,6 +339,6 @@ export VERSION="$(curl -Ls https://archlinux.org/packages/multilib/x86_64/steam/
 export ARCH=x86_64
 ./appimagetool --comp zstd --mksquashfs-opt -Xcompression-level --mksquashfs-opt 1 \
 	-u "gh-releases-zsync|$GITHUB_REPOSITORY_OWNER|Steam-appimage|continuous|*x86_64.AppImage.zsync" \
-	./"$APP".AppDir Steam-"$VERSION-3"-"$ARCH".AppImage 
+	./"$APP".AppDir Steam-"$VERSION"-"$ARCH".AppImage 
 cd .. && mv ./tmp/*.AppImage* ./ || exit 1
 
