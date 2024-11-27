@@ -54,7 +54,7 @@ Comment[th]=โปรแกรมสำหรับจัดการและ�
 Comment[tr]=Steam üzerinden oyun oynama ve düzenleme uygulaması
 Comment[uk]=Програма для керування іграми та запуску ігор у Steam
 Comment[vi]=Ứng dụng để quản lý và chơi trò chơi trên Steam
-Exec=AppRun %U
+Exec=steam %U
 Icon=steam
 Terminal=false
 Type=Application
@@ -64,6 +64,7 @@ Actions=Store;Community;Library;Servers;Screenshots;News;Settings;BigPicture;Fri
 X-PrefersNonDefaultGPU=true
 X-KDE-RunOnDiscreteGpu=true
 X-AppImage-Version=182
+StartupWMClass=steam
 
 [Desktop Action Store]
 Name=Store
@@ -93,7 +94,7 @@ Name[th]=ร้านค้า
 Name[tr]=Mağaza
 Name[uk]=Крамниця
 Name[vi]=Cửa hàng
-Exec=AppRun steam://store
+Exec=steam steam://store
 
 [Desktop Action Community]
 Name=Community
@@ -123,7 +124,7 @@ Name[th]=ชุมชน
 Name[tr]=Topluluk
 Name[uk]=Спільнота
 Name[vi]=Cộng đồng
-Exec=AppRun steam://url/SteamIDControlPage
+Exec=steam steam://url/SteamIDControlPage
 
 [Desktop Action Library]
 Name=Library
@@ -153,7 +154,7 @@ Name[th]=คลัง
 Name[tr]=Kütüphane
 Name[uk]=Бібліотека
 Name[vi]=Thư viện
-Exec=AppRun steam://open/games
+Exec=steam steam://open/games
 
 [Desktop Action Servers]
 Name=Servers
@@ -183,7 +184,7 @@ Name[th]=เซิร์ฟเวอร์
 Name[tr]=Sunucular
 Name[uk]=Сервери
 Name[vi]=Máy chủ
-Exec=AppRun steam://open/servers
+Exec=steam steam://open/servers
 
 [Desktop Action Screenshots]
 Name=Screenshots
@@ -213,7 +214,7 @@ Name[th]=ภาพหน้าจอ
 Name[tr]=Ekran Görüntüleri
 Name[uk]=Скріншоти
 Name[vi]=Ảnh chụp
-Exec=AppRun steam://open/screenshots
+Exec=steam steam://open/screenshots
 
 [Desktop Action News]
 Name=News
@@ -243,7 +244,7 @@ Name[th]=ข่าวสาร
 Name[tr]=Haberler
 Name[uk]=Новини
 Name[vi]=Tin tức
-Exec=AppRun steam://open/news
+Exec=steam steam://open/news
 
 [Desktop Action Settings]
 Name=Settings
@@ -273,11 +274,11 @@ Name[th]=การตั้งค่า
 Name[tr]=Ayarlar
 Name[uk]=Налаштування
 Name[vi]=Thiết lập
-Exec=AppRun steam://open/settings
+Exec=steam steam://open/settings
 
 [Desktop Action BigPicture]
 Name=Big Picture
-Exec=AppRun steam://open/bigpicture
+Exec=steam steam://open/bigpicture
 
 [Desktop Action Friends]
 Name=Friends
@@ -307,7 +308,7 @@ Name[th]=เพื่อน
 Name[tr]=Arkadaşlar
 Name[uk]=Друзі
 Name[vi]=Bạn bè
-Exec=AppRun steam://open/friends" > "$APP".desktop
+Exec=steam steam://open/friends" > "$APP".desktop
 
 # APPRUN
 rm -f ./AppRun
