@@ -336,7 +336,7 @@ fi
 cd .. || exit 1
 
 # EXPORT THE APPDIR TO AN APPIMAGE
-export VERSION="$(curl -Ls https://archlinux.org/packages/multilib/x86_64/steam/ | grep steam | head -1 | tr ' ' '\n' | grep "^[0-9]")"
+export VERSION="$(curl -Ls https://archlinux.org/packages/multilib/x86_64/steam/ | grep 'steam [0-9]' | grep -Eo '\b[0-9][^ <>]*\b' | head -1)"
 export ARCH=x86_64
 ./appimagetool --comp zstd --mksquashfs-opt -Xcompression-level --mksquashfs-opt 1 \
 	-u "gh-releases-zsync|$GITHUB_REPOSITORY_OWNER|Steam-appimage|continuous|*x86_64.AppImage.zsync" \
