@@ -1,0 +1,59 @@
+name: Utils CI
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  schedule:
+    - cron:  '0 12 1 * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: build
+      if: always()
+      run: |
+        chmod +x create-utils.sh
+        pacman -Syu --noconfirm --needed base-devel gawk grep lz4 zstd wget \
+                 curl gcc make autoconf libtool pkgconf libcap fuse2 lzo patch \
+                 xz zlib findutils openssl jemalloc xxhash boost lz4 xz \
+                 zstd libarchive libunwind google-glog gtest fmt gflags \
+                 double-conversion cmake ruby-ronn libevent libdwarf git \
+                 clang libsodium liburing libaio musl kernel-headers-musl utf8cpp \
+                 chrono-date python python-mistletoe range-v3 nlohmann-json
+
+        build_dwarfs=true ./create-utils.sh
+        mkdir dist
+        mv ./*.tar.gz dist/
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4.4.0
+      with:
+        name: Utils
+        path: 'dist'
+        
+  release:
+      needs: [build]
+      permissions: write-all
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/download-artifact@v4.1.8
+          with:
+            name: Utils
+
+        - name: release
+          uses: marvinpinto/action-automatic-releases@latest
+          with:
+            title: Utils
+            automatic_release_tag: utils
+            prerelease: true
+            draft: false
+            files: |
+              utils_dwarfs.tar.gz
+            repo_token: ${{ secrets.GITHUB_TOKEN }}
