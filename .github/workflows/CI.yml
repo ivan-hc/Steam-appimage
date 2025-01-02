@@ -18,6 +18,7 @@ jobs:
       run: |
         sudo apt install desktop-file-utils
         APP=steam
+        wget -q https://github.com/ivan-hc/Steam-appimage/releases/download/utils/utils_dwarfs.tar.gz
         chmod +x create-arch-bootstrap.sh create-conty.sh "$APP"-conty-builder.sh
         sudo ./create-arch-bootstrap.sh && ./create-conty.sh
         mkdir -p tmp/"$APP".AppDir
