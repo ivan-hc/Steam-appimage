@@ -1,7 +1,6 @@
-Unofficial AppImage of Steam built on top of "Conty", the portable Arch Linux container that runs everywhere.
+Unofficial AppImage of Steam built on top of "[Conty](https://github.com/Kron4ek/Conty)", the portable Arch Linux container that runs everywhere.
 
 This includes 32bit libraries needed to run Steam, also it downloads and installs in ~/.local/share/Conty a portable version of Nvidia drivers if needed.
-
 
 ---------------------------------
 
