@@ -1,4 +1,4 @@
-name: Release Steam Appimage
+name: Steam Appimage
 concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
