@@ -369,7 +369,7 @@ export ARCH=x86_64
 export VERSION="$(curl -Ls https://archlinux.org/packages/multilib/x86_64/steam/ | grep 'steam [0-9]' | grep -Eo '\b[0-9][^ <>]*\b' | head -1)"
 echo "$VERSION" > ~/version
 ./appimagetool --comp zstd --mksquashfs-opt -Xcompression-level --mksquashfs-opt 1 \
-	-u "gh-releases-zsync|$GITHUB_REPOSITORY_OWNER|Steam-appimage|continuous|*x86_64.AppImage.zsync" \
+	-u "gh-releases-zsync|$GITHUB_REPOSITORY_OWNER|Steam-appimage|latest|*x86_64.AppImage.zsync" \
 	./"$APP".AppDir Steam-"$VERSION"-"$ARCH".AppImage 
 cd .. && mv ./tmp/*.AppImage* ./ || exit 1
 
