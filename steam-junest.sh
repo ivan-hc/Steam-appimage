@@ -6,7 +6,7 @@ lib32_pkgs="lib32-alsa-lib lib32-giflib lib32-gnutls lib32-libjpeg-turbo lib32-l
 lib32-libva-intel-driver lib32-libva-mesa-driver lib32-libxcomposite lib32-libxslt lib32-mesa lib32-mpg123 lib32-pipewire \
 lib32-v4l-utils lib32-vkd3d lib32-vulkan-icd-loader lib32-vulkan-intel lib32-vulkan-mesa-layers lib32-vulkan-radeon \
 lib32-gamemode mangohud lib32-mangohud lib32-wayland lib32-gtk2 lib32-libtiff"
-DEPENDENCES="gamescope gamemode glibc-eac-bin lib32-glibc-eac-bin libyaml steam tar xz yad git xdotool $lib32_pkgs" #SYNTAX: "APP1 APP2 APP3 APP4...", LEAVE BLANK IF NO OTHER DEPENDENCIES ARE NEEDED
+DEPENDENCES="gamescope gamemode glibc-eac-bin lib32-glibc-eac-bin libyaml pciutils steam tar xz yad git xdotool $lib32_pkgs" #SYNTAX: "APP1 APP2 APP3 APP4...", LEAVE BLANK IF NO OTHER DEPENDENCIES ARE NEEDED
 BASICSTUFF="binutils debugedit gzip"
 COMPILERS="base-devel"
 
@@ -14,11 +14,11 @@ COMPILERS="base-devel"
 #	KEYWORDS TO FIND AND SAVE WHEN COMPILING THE APPIMAGE
 #############################################################################
 
-BINSAVED="mktemp md5sum cmp getopt zenity"
+BINSAVED="mktemp md5sum cmp getopt zenity lspci"
 SHARESAVED="SAVESHAREPLEASE"
 lib_audio_keywords="alsa jack pipewire pulse"
 lib_browser_launcher="gio-launch-desktop libasound.so libatk-bridge libatspi libcloudproviders libdb- libdl.so libedit libepoxy libgtk-3.so.0 libjson-glib libnssutil libpthread.so librt.so libtinysparql libwayland-cursor libX11-xcb.so libxapp-gtk3-module.so libXcursor libXdamage libXi.so libxkbfile.so libXrandr p11 pk"
-LIBSAVED="libXfixes.so libxmlb.so $lib_audio_keywords $lib_browser_launcher"
+LIBSAVED="libXfixes.so libxmlb.so libSDL $lib_audio_keywords $lib_browser_launcher"
 
 [ -n "$lib_browser_launcher" ] && DEPENDENCES="$DEPENDENCES xapp hicolor-icon-theme"
 
