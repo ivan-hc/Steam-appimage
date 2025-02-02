@@ -5,9 +5,9 @@ BIN="$APP" #CHANGE THIS IF THE NAME OF THE BINARY IS DIFFERENT FROM "$APP" (for 
 lib32_pkgs="lib32-alsa-lib lib32-giflib lib32-gnutls lib32-libjpeg-turbo lib32-libldap lib32-libpng lib32-libpulse lib32-libva \
 lib32-libva-intel-driver lib32-libva-mesa-driver lib32-libxcomposite lib32-libxslt lib32-mesa lib32-mpg123 lib32-pipewire \
 lib32-v4l-utils lib32-vkd3d lib32-vulkan-icd-loader lib32-vulkan-intel lib32-vulkan-mesa-layers lib32-vulkan-radeon \
-lib32-gamemode lib32-mangohud lib32-wayland lib32-gtk2 lib32-libtiff lib32-glibc-eac-bin"
+lib32-gamemode lib32-mangohud lib32-wayland lib32-gtk2 lib32-libtiff lib32-glibc-eac-bin lib32-sdl_image lib32-sdl2-compat"
 video_pkgs="mesa vulkan-radeon vulkan-intel vulkan-icd-loader vulkan-mesa-layers libva-mesa-driver libva-intel-driver intel-media-driver"
-DEPENDENCES="gamescope gamemode git glibc-eac-bin libyaml mangohud pciutils steam tar wayland xz xdotool xorg-xwayland yad $lib32_pkgs $video_pkgs" #SYNTAX: "APP1 APP2 APP3 APP4...", LEAVE BLANK IF NO OTHER DEPENDENCIES ARE NEEDED
+DEPENDENCES="gamescope gamemode git glibc-eac-bin libyaml mangohud pciutils steam steam-native-runtime tar wayland xz xdotool xorg-xwayland yad $lib32_pkgs $video_pkgs" #SYNTAX: "APP1 APP2 APP3 APP4...", LEAVE BLANK IF NO OTHER DEPENDENCIES ARE NEEDED
 BASICSTUFF="binutils debugedit gzip"
 COMPILERS="base-devel"
 
@@ -315,7 +315,8 @@ _extract_main_package() {
 	fi
 	[ -z "$pkg_full_path" ] && echo "💀 ERROR: no package found for \"$APP\", operation aborted!" && exit 0
 	tar fx "$pkg_full_path" -C ./base/
-	VERSION=$(cat ./base/.PKGINFO | grep pkgver | cut -c 10- | sed 's@.*:@@')
+	#VERSION=$(cat ./base/.PKGINFO | grep pkgver | cut -c 10- | sed 's@.*:@@')
+	VERSION=$(curl -Ls https://archlinux.org/packages/multilib/x86_64/steam/ | grep 'steam [0-9]' | grep -Eo '\b[0-9][^ <>]*\b' | head -1)
 	mkdir -p deps
 }
 
