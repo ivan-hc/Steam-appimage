@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 APP=steam-screensaver-fix
-BIN="$APP" #CHANGE THIS IF THE NAME OF THE BINARY IS DIFFERENT FROM "$APP" (for example, the binary of "obs-studio" is "obs")
+BIN="steam-screensaver-fix-runtime" #CHANGE THIS IF THE NAME OF THE BINARY IS DIFFERENT FROM "$APP" (for example, the binary of "obs-studio" is "obs")
 lib32_pkgs="lib32-alsa-lib lib32-giflib lib32-gnutls lib32-libjpeg-turbo lib32-libldap lib32-libpng lib32-libpulse lib32-libva \
 lib32-libva-intel-driver lib32-libva-mesa-driver lib32-libxcomposite lib32-libxslt lib32-mesa lib32-mpg123 lib32-pipewire \
 lib32-v4l-utils lib32-vkd3d lib32-vulkan-icd-loader lib32-vulkan-intel lib32-vulkan-mesa-layers lib32-vulkan-radeon \
