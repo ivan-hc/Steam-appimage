@@ -16,7 +16,7 @@ COMPILERS="base-devel"
 #############################################################################
 
 BINSAVED="mktemp md5sum cmp getopt zenity lspci steam xdg-user-dir"
-SHARESAVED="SAVESHAREPLEASE"
+SHARESAVED="libdrm"
 lib_audio_keywords="alsa jack pipewire pulse"
 lib_browser_launcher="gio-launch-desktop libasound.so libatk-bridge libatspi libcloudproviders libdb- libdl.so libedit libepoxy libgtk-3.so.0 libjson-glib libnssutil libpthread.so librt.so libtinysparql libwayland-cursor libX11-xcb.so libxapp-gtk3-module.so libXcursor libXdamage libXi.so libxkbfile.so libXrandr p11 pk"
 LIBSAVED="libXfixes.so libxmlb.so libSDL $lib_audio_keywords $lib_browser_launcher"
@@ -346,7 +346,7 @@ _extract_package() {
 			tar fx "$pkg_full_path" -C ./deps/ --warning=no-unknown-keyword
 			echo "$pkgname" >> ./packages
 		fi
-		[ -n "$lib_browser_launcher" ] && [[ "$arg" =~ (hicolor-icon-theme|xapp) ]] && tar fx "$pkg_full_path" -C ./base/ --warning=no-unknown-keyword --exclude='.PKGINFO'
+		[ -n "$lib_browser_launcher" ] && [[ "$arg" =~ (libdrm|hicolor-icon-theme|xapp) ]] && tar fx "$pkg_full_path" -C ./base/ --warning=no-unknown-keyword --exclude='.PKGINFO'
 	fi
 }
 
