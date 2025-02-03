@@ -571,6 +571,12 @@ find ./"$APP".AppDir/.junest/usr/bin -type f ! -regex '.*\.so.*' -exec strip --s
 find ./"$APP".AppDir/.junest/usr -type d -empty -delete
 _enable_mountpoints_for_the_inbuilt_bubblewrap
 
+# Use the patched bwrap to allow launching AppImages
+echo "Using patched bubblewrap..."
+rm -Rf ./"$APP".AppDir/.junest/usr/bin/bwrap
+wget "https://bin.ajam.dev/x86_64_Linux/bwrap-patched" -O ./"$APP".AppDir/.junest/usr/bin/bwrap || exit 1
+chmod +x ./"$APP".AppDir/.junest/usr/bin/bwrap || exit 1
+
 #############################################################################
 #	CREATE THE APPIMAGE
 #############################################################################
