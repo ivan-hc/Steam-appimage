@@ -16,7 +16,7 @@ jobs:
 
     - name: build
       run: |
-        sudo apt install zsync
+        sudo apt install zsync llvm
         chmod +x ./steam-runimage.sh && ./steam-runimage.sh
         mkdir -p ./dist
         mv *.AppImage* dist/
