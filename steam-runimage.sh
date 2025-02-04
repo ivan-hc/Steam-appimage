@@ -103,7 +103,7 @@ rm -rfv ./AppDir/sharun/bin/chisel \
 	./AppDir/rootfs/usr/share/icons/AdwaitaLegacy
 
 VERSION="$(cat ~/version)"
-ARCH="$(uname -m)"
+export ARCH="$(uname -m)"
 UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*$ARCH.AppImage.zsync"
 
 # make appimage with type2-runtime
