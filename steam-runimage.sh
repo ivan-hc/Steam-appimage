@@ -104,7 +104,7 @@ rm -rfv ./AppDir/sharun/bin/chisel \
 
 VERSION="$(cat ~/version)"
 export ARCH="$(uname -m)"
-UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*$ARCH.AppImage.zsync"
+UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*squashfs-$ARCH.AppImage.zsync"
 
 # make appimage with type2-runtime
 # remove this if libappimage ever adopts support for dwarfs
@@ -117,6 +117,7 @@ chmod +x ./appimagetool
 	-n -u "$UPINFO" "$PWD"/AppDir "$PWD"/Steam-"$VERSION"-anylinux.squashfs-"$ARCH".AppImage
 
 # make appimage with uruntime
+UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*dwarfs-$ARCH.AppImage.zsync"
 URUNTIME=$(wget --retry-connrefused --tries=30 \
 	https://api.github.com/repos/VHSgunzo/uruntime/releases -O - \
 	| sed 's/[()",{} ]/\n/g' | grep -oi "https.*appimage.*dwarfs.*$ARCH$" | head -1)
