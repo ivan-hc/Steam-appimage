@@ -31,8 +31,7 @@ run_install() {
 	yes|pac -S glibc-eac lib32-glibc-eac
 
 	echo '== install debloated llvm for space saving (optionally)'
-	LLVM=$(wget --retry-connrefused --tries=30 https://api.github.com/repos/Samueru-sama/llvm-libs-debloated/releases -O - \
-		| sed 's/[()",{} ]/\n/g' | grep -oi "https.*minimal.pkg.tar.zst$" | head -1)
+	LLVM="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/llvm-libs-mini-x86_64.pkg.tar.zst"
 	wget --retry-connrefused --tries=30 "$LLVM" -O ./llvm-libs.pkg.tar.zst
 	pac -U --noconfirm ./llvm-libs.pkg.tar.zst
 	rm -f ./llvm-libs.pkg.tar.zst
