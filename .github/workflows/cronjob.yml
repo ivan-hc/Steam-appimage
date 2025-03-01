@@ -2,12 +2,36 @@ name: Github Action with a cronjob trigger
 on:
   schedule:
     - cron: "0 0 * * *"
+
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
-  actions: write
+  contents: write
+
 jobs:
-  cronjob-based-github-action:
-    name: Cronjob based github action
+  sync-files:
+    name: "Run sync"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: gautamkrishnar/keepalive-workflow@v2
+      - name: "Checkout source repository"
+        uses: actions/checkout@v4
+
+      - name: "List releases"
+        run: |
+          curl -Ls https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/latest | sed 's/[()",{} ]/\n/g' | grep -oi "https.*mage$" > latest-release.txt
+
+      - name: "Push to Source"
+        run: |
+          git config --global user.name "ivan-hc"
+          git config --global user.email "noreply@github.com"
+          git add latest-release.txt
+          if git diff-index --quiet HEAD; then
+            echo "No changes to commit." >> $GITHUB_STEP_SUMMARY
+          else
+            git commit -m "Sync files from source repository"
+            git push && echo "Sync to Source succeeded" >> $GITHUB_STEP_SUMMARY
+          fi
