@@ -37,7 +37,7 @@ run_install() {
 	rm -f ./llvm-libs.pkg.tar.zst
 
 	echo '== shrink (optionally)'
-	pac -Rsndd --noconfirm wget gocryptfs adobe-source-code-pro-fonts jq \
+	pac -Rsndd --noconfirm wget gocryptfs jq \
 		gnupg webkit2gtk-4.1 perl vulkan-tools
 	rim-shrink --all
 	pac -Rsndd --noconfirm binutils svt-av1
