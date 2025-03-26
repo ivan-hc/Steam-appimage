@@ -119,9 +119,7 @@ chmod +x ./appimagetool
 
 # make appimage with uruntime
 UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*dwarfs-$ARCH.AppImage.zsync"
-URUNTIME=$(wget --retry-connrefused --tries=30 \
-	https://api.github.com/repos/VHSgunzo/uruntime/releases -O - \
-	| sed 's/[()",{} ]/\n/g' | grep -oi "https.*appimage.*dwarfs.*$ARCH$" | head -1)
+URUNTIME="https://github.com/VHSgunzo/uruntime/releases/latest/download/uruntime-appimage-dwarfs-$ARCH"
 
 wget --retry-connrefused --tries=30 "$URUNTIME" -O ./uruntime
 chmod +x ./uruntime
