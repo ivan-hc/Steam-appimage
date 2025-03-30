@@ -124,6 +124,9 @@ URUNTIME="https://github.com/VHSgunzo/uruntime/releases/latest/download/uruntime
 wget --retry-connrefused --tries=30 "$URUNTIME" -O ./uruntime
 chmod +x ./uruntime
 
+# Increase cache size to improve launch time
+sed -i 's|512M|896M|g' ./uruntime
+
 # Add udpate info to runtime
 echo "Adding update information \"$UPINFO\" to runtime..."
 ./uruntime --appimage-addupdinfo "$UPINFO"
