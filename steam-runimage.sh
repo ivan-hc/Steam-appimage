@@ -16,7 +16,7 @@ run_install() {
 		steam egl-wayland vulkan-radeon lib32-vulkan-radeon vulkan-tools
 		vulkan-intel lib32-vulkan-intel vulkan-nouveau lib32-vulkan-nouveau
 		vulkan-swrast lib32-vulkan-swrast lib32-libpipewire libpipewire pipewire
-		lib32-libpipewire libpulse lib32-libpulse vkd3d lib32-vkd3d wget xdg-utils
+		lib32-libpipewire libpulse lib32-libpulse vkd3d lib32-vkd3d wget
 		vulkan-mesa-layers lib32-vulkan-mesa-layers freetype2 lib32-freetype2 fuse2
 		yad mangohud lib32-mangohud gamescope gamemode zenity-gtk3 steam-screensaver-fix
 	)
@@ -53,13 +53,15 @@ run_install() {
 	cp /usr/share/icons/hicolor/256x256/apps/steam.png ~/
 	cp /usr/share/applications/steam.desktop ~/
 
+	# Use host xdg-open
+	ln -sf /var/host/bin/xdg-open /usr/bin/xdg-open
+
 	echo '== create RunImage config for app (optionally)'
 	cat <<- 'EOF' > "$RUNDIR/config/Run.rcfg"
 	RIM_CMPRS_LVL="${RIM_CMPRS_LVL:=22}"
-	RIM_CMPRS_BSIZE="${RIM_CMPRS_BSIZE:=24}"
-
+	RIM_CMPRS_BSIZE="${RIM_CMPRS_BSIZE:=25}"
+	RIM_HOST_XDG_OPEN="${RIM_HOST_XDG_OPEN:=1}"
 	RIM_SYS_NVLIBS="${RIM_SYS_NVLIBS:=1}"
-
 	RIM_NVIDIA_DRIVERS_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/runimage_nvidia"
 	RIM_SHARE_ICONS="${RIM_SHARE_ICONS:=1}"
 	RIM_SHARE_FONTS="${RIM_SHARE_FONTS:=1}"
