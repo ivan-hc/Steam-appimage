@@ -1,2 +1,2 @@
-https://github.com/ivan-hc/Steam-appimage/releases/download/1.0.0.82-1/Steam-1.0.0.82-1-anylinux.dwarfs-x86_64.AppImage
-https://github.com/ivan-hc/Steam-appimage/releases/download/1.0.0.82-1/Steam-1.0.0.82-1-anylinux.squashfs-x86_64.AppImage
+https://github.com/ivan-hc/Steam-appimage/releases/download/1.0.0.82-2/Steam-1.0.0.82-2-anylinux.dwarfs-x86_64.AppImage
+https://github.com/ivan-hc/Steam-appimage/releases/download/1.0.0.82-2/Steam-1.0.0.82-2-anylinux.squashfs-x86_64.AppImage
