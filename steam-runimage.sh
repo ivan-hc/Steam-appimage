@@ -88,6 +88,11 @@ mv ~/steam.desktop ./AppDir
 mv ~/steam.png     ./AppDir
 sed -i '30i\StartupWMClass=steam' ./AppDir/steam.desktop
 
+# steam-runtime is gone and now the script is called steam
+# make a wrapper symlink since steam-screensaver-fix hasn't updated to that
+ln -s ./steam ./AppDir/rootfs/usr/bin/steam-runtime || true
+ln -s ./steam ./AppDir/rootfs/usr/bin/steam-native || true
+
 # debloat
 rm -rfv ./AppDir/sharun/bin/chisel \
 	./AppDir/rootfs/usr/lib*/libgo.so* \
