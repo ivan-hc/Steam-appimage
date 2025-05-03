@@ -30,11 +30,13 @@ run_install() {
 	echo '== install glibc with patches for Easy Anti-Cheat (optionally)'
 	yes|pac -S glibc-eac lib32-glibc-eac
 
-	echo '== install debloated llvm for space saving (optionally)'
+	echo '== install debloated packages for space saving (optionally)'
 	LLVM="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/llvm-libs-mini-x86_64.pkg.tar.zst"
+	OPUS="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/opus-nano-x86_64.pkg.tar.zst"
 	wget --retry-connrefused --tries=30 "$LLVM" -O ./llvm-libs.pkg.tar.zst
-	pac -U --noconfirm ./llvm-libs.pkg.tar.zst
-	rm -f ./llvm-libs.pkg.tar.zst
+	wget --retry-connrefused --tries=30 "$OPUS" -O ./opus-nano.pkg.tar.zst
+	pac -U --noconfirm ./*.pkg.tar.zst
+	rm -f ./*.pkg.tar.zst
 
 	echo '== shrink (optionally)'
 	pac -Rsndd --noconfirm wget gocryptfs jq \
@@ -55,6 +57,9 @@ run_install() {
 
 	# Use host xdg-open
 	ln -sf /var/host/bin/xdg-open /usr/bin/xdg-open
+
+	# allow steam to run as root
+	sed -i 's|"$(id -u)" == "0"|"$(id -u)" == "69"|' /usr/lib/steam/bin_steam.sh
 
 	echo '== create RunImage config for app (optionally)'
 	cat <<- 'EOF' > "$RUNDIR/config/Run.rcfg"
