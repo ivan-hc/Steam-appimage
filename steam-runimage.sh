@@ -82,8 +82,8 @@ export -f run_install
 
 ##########################
 
-# enable OverlayFS mode, disable Nvidia driver check and run install steps
-RIM_OVERFS_MODE=1 RIM_NO_NVIDIA_CHECK=1 ./runimage bash -c run_install
+# Allow Root, enable OverlayFS mode, disable Nvidia driver check and run install steps
+ RIM_ALLOW_ROOT=1 RIM_OVERFS_MODE=1 RIM_NO_NVIDIA_CHECK=1 ./runimage bash -c run_install
 ./steam.RunImage --runtime-extract
 rm -f ./steam.RunImage
 
