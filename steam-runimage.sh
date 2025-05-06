@@ -72,7 +72,7 @@ run_install() {
 	RIM_SHARE_FONTS="${RIM_SHARE_FONTS:=1}"
 	RIM_SHARE_THEMES="${RIM_SHARE_THEMES:=1}"
 	RIM_ALLOW_ROOT="${RIM_ALLOW_ROOT:=1}"
-        RIM_BIND="/usr/share/locale:/usr/share/locale,/usr/lib/locale:/usr/lib/locale"
+	RIM_BIND="/usr/share/locale:/usr/share/locale,/usr/lib/locale:/usr/lib/locale"
 	RIM_AUTORUN=steam-screensaver-fix-runtime
 	EOF
 
