@@ -91,8 +91,9 @@ rm -f ./steam.RunImage
 mv ./RunDir ./AppDir
 mv ./AppDir/Run ./AppDir/AppRun
 
-mv ~/steam.desktop ./AppDir
-mv ~/steam.png     ./AppDir
+cp -v ~/steam.desktop ./AppDir
+cp -v ~/steam.png     ./AppDir
+cp -v ~/steam.png     ./AppDir/.DirIcon
 sed -i '30i\StartupWMClass=steam' ./AppDir/steam.desktop
 
 # steam-runtime is gone and now the script is called steam
@@ -119,20 +120,9 @@ rm -rfv ./AppDir/sharun/bin/chisel \
 
 VERSION="$(cat ~/version)"
 export ARCH="$(uname -m)"
-UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*squashfs-$ARCH.AppImage.zsync"
-
-# make appimage with type2-runtime
-# remove this if libappimage ever adopts support for dwarfs
-APPIMAGETOOL="https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage"
-wget --retry-connrefused --tries=30 "$APPIMAGETOOL" -O ./appimagetool
-chmod +x ./appimagetool
-./appimagetool --comp zstd \
-	--mksquashfs-opt -Xcompression-level --mksquashfs-opt 22 \
-	--mksquashfs-opt -b --mksquashfs-opt 1M \
-	-n -u "$UPINFO" "$PWD"/AppDir "$PWD"/Steam-"$VERSION"-anylinux.squashfs-"$ARCH".AppImage
+UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*-$ARCH.AppImage.zsync"
 
 # make appimage with uruntime
-UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*dwarfs-$ARCH.AppImage.zsync"
 URUNTIME="https://github.com/VHSgunzo/uruntime/releases/latest/download/uruntime-appimage-dwarfs-$ARCH"
 
 wget --retry-connrefused --tries=30 "$URUNTIME" -O ./uruntime
@@ -148,7 +138,20 @@ echo "Generating AppImage..."
 	--no-history --no-create-timestamp \
 	--compression zstd:level=22 -S26 -B8 \
 	--header uruntime \
-	-i ./AppDir -o Steam-"$VERSION"-anylinux.dwarfs-"$ARCH".AppImage
+	-i ./AppDir -o Steam-"$VERSION"-anylinux-"$ARCH".AppImage
 
-zsyncmake *dwarfs*.AppImage -u *dwarfs*.AppImage
+# make squashfs appbundle
+UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*$ARCH*.AppBundle.zsync"
+wget -qO ./pelf "https://github.com/xplshn/pelf/releases/latest/download/pelf_$ARCH"
+chmod +x ./pelf
+echo "Generating [sqfs]AppBundle...(Go runtime)"
+./pelf --add-appdir ./AppDir \
+	--compression "-comp zstd -Xcompression-level 22 -b 1M" \
+	--appbundle-id="Steam-${VERSION}" \
+	--appimage-compat \
+	--add-updinfo "$UPINFO" \
+	--output-to "Steam-${VERSION}-anylinux-${ARCH}.sqfs.AppBundle"
+
+zsyncmake ./*.AppImage -u ./*.AppImage
+zsyncmake ./*.AppBundle -u ./*.AppBundle
 echo "All Done!"
