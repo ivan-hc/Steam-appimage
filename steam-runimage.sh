@@ -145,9 +145,10 @@ wget -qO ./pelf "https://github.com/xplshn/pelf/releases/latest/download/pelf_$A
 chmod +x ./pelf
 echo "Generating [sqfs]AppBundle...(Go runtime)"
 ./pelf --add-appdir ./AppDir \
-    --appbundle-id="Steam-${VERSION}" \
-    --appimage-compat \
-    --output-to "Steam-${VERSION}-anylinux-${ARCH}.sqfs.AppBundle"
+	--appbundle-id="Steam-${VERSION}" \
+	--appimage-compat \
+	--add-updinfo "$UPINFO" \
+	--output-to "Steam-${VERSION}-anylinux-${ARCH}.sqfs.AppBundle"
 
 zsyncmake ./*.AppImage -u ./*.AppImage
 zsyncmake ./*.AppBundle -u ./*.AppBundle
