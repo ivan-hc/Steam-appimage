@@ -146,6 +146,7 @@ wget -qO ./pelf "https://github.com/xplshn/pelf/releases/latest/download/pelf_$A
 chmod +x ./pelf
 echo "Generating [sqfs]AppBundle...(Go runtime)"
 ./pelf --add-appdir ./AppDir \
+	--compression "-Xcompression-level 22 -b 1M" \
 	--appbundle-id="Steam-${VERSION}" \
 	--appimage-compat \
 	--add-updinfo "$UPINFO" \
