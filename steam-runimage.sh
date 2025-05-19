@@ -141,7 +141,7 @@ echo "Generating AppImage..."
 	-i ./AppDir -o Steam-"$VERSION"-anylinux-"$ARCH".AppImage
 
 # make squashfs appbundle
-UPINFO="$(echo "$UPINFO" | sed 's|AppImage.zsync|AppBundle.zsync|')"
+UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*$ARCH*.AppBundle.zsync"
 wget -qO ./pelf "https://github.com/xplshn/pelf/releases/latest/download/pelf_$ARCH"
 chmod +x ./pelf
 echo "Generating [sqfs]AppBundle...(Go runtime)"
