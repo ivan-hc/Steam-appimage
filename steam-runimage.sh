@@ -137,7 +137,7 @@ echo "Generating AppImage..."
 	--no-history --no-create-timestamp \
 	--compression zstd:level=22 -S26 -B8 \
 	--header uruntime \
-	-i ./AppDir -o Steam-"$VERSION"-anylinux.dwarfs-"$ARCH".AppImage
+	-i ./AppDir -o Steam-"$VERSION"-anylinux-"$ARCH".AppImage
 
 # make squashfs appbundle
 UPINFO="$(echo "$UPINFO" | sed 's|AppImage.zsync|AppBundle.zsync|')"
