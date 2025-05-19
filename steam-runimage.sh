@@ -148,7 +148,7 @@ echo "Generating [sqfs]AppBundle...(Go runtime)"
 ./pelf --add-appdir ./AppDir \
 	--compression "-comp zstd -Xcompression-level 22 -b 1M" \
 	--appbundle-id="Steam-${VERSION}" \
-	--appimage-compat \
+	--appimage-compat --disable-use-random-workdir \
 	--add-updinfo "$UPINFO" \
 	--output-to "Steam-${VERSION}-anylinux-${ARCH}.sqfs.AppBundle"
 
