@@ -91,8 +91,9 @@ rm -f ./steam.RunImage
 mv ./RunDir ./AppDir
 mv ./AppDir/Run ./AppDir/AppRun
 
-mv ~/steam.desktop ./AppDir
-mv ~/steam.png     ./AppDir
+cp -v ~/steam.desktop ./AppDir
+cp -v ~/steam.png     ./AppDir
+cp -v ~/steam.png     ./AppDir/.DirIcon
 sed -i '30i\StartupWMClass=steam' ./AppDir/steam.desktop
 
 # steam-runtime is gone and now the script is called steam
