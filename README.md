@@ -37,6 +37,12 @@ This command requires [Pho](https://github.com/zyrouge/pho) to be installed.
 pho install github --id steam-appimage ivan-hc/Steam-appimage
 ```
 
+**Run**
+
+```bash
+pho run steam-appimage
+```
+
 ### Manual
 
 
