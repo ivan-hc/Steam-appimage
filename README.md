@@ -26,6 +26,20 @@ This includes 32bit libraries needed to run Steam, **it will also use the propri
 
 ### How it works
 
+
+## Installation
+
+### Pho
+
+This command requires [Pho](https://github.com/zyrouge/pho) to be installed.
+
+```bash
+pho install github --id steam-appimage ivan-hc/Steam-appimage
+```
+
+### Manual
+
+
 1. Download the AppImage from https://github.com/ivan-hc/Steam-appimage/releases/latest
 2. Made it executable
 ```
