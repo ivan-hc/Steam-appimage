@@ -21,11 +21,6 @@ jobs:
         mkdir -p ./dist
         mv *.AppImage* dist/
         mv *.AppBundle* dist/
-
-    - name: Check version file
-      run: |
-       cat ~/version
-       echo "APP_VERSION=$(cat ~/version)" >> "${GITHUB_ENV}"
     
     - name: Upload artifact
       uses: actions/upload-artifact@v4.4.3
@@ -40,6 +35,7 @@ jobs:
        path: ~/version
     
   release:
+      if: ${{ github.ref_name == 'main' }}
       needs: [build]
       permissions: write-all
       runs-on: ubuntu-latest
@@ -52,25 +48,16 @@ jobs:
           with:
             name: version
 
-        - name: Read version
+        - name: Read version and Get date
           run: |
-            cat version
-            export VERSION="$(<version)"
-            echo "APP_VERSION=${VERSION}" >> "${GITHUB_ENV}"
-    
-        #Version Release
-        - name: Del Previous Release
-          run: |
-            gh release delete "${APP_VERSION}" --repo "${GITHUB_REPOSITORY}" --cleanup-tag  -y
-            sleep 5
-          env:
-            GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          continue-on-error: true
-        - name: Continuous Releaser
-          uses: softprops/action-gh-release@v2
+            echo "VERSION=$(cat version)" >> "${GITHUB_ENV}"
+            echo "DATE=$(date +'%Y-%m-%d_%s')" >> "${GITHUB_ENV}"
+
+        - name: Release Artifacts
+          uses: softprops/action-gh-release@v2.2.2
           with:
-            name: "Steam AppImage ${{ env.APP_VERSION}}"
-            tag_name: "${{ env.APP_VERSION}}"
+            name: "Steam: ${{ env.VERSION }}"
+            tag_name: "${{ env.VERSION }}@${{ env.DATE }}"
             prerelease: false
             draft: false
             generate_release_notes: false
@@ -78,24 +65,3 @@ jobs:
             files: |
               *.AppImage*
               *.AppBundle*
-          continue-on-error: false
-
-        #Snapshot Release
-        - name: Get Date
-          run: |
-            SNAPSHOT_TAG="$(date --utc +'%Y%m%d-%H%M%S')"
-            echo SNAPSHOT_TAG="${SNAPSHOT_TAG}" >> "${GITHUB_ENV}"
-          continue-on-error: false
-        - name: Snapshot Releaser
-          uses: softprops/action-gh-release@v2
-          with:
-            name: "Snapshot ${{ env.APP_VERSION}}"
-            tag_name: "${{ env.SNAPSHOT_TAG}}"
-            prerelease: false
-            draft: false
-            generate_release_notes: false
-            make_latest: false
-            files: |
-              *.AppImage*
-              *.AppBundle*
-          continue-on-error: false
