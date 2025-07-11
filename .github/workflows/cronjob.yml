@@ -23,6 +23,7 @@ jobs:
       - name: "List releases"
         run: |
           curl -Ls https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/latest | sed 's/[()",{} ]/\n/g' | grep -oi "https.*mage$" > latest-release.txt
+          date >> latest-release.txt
 
       - name: "Push to Source"
         run: |
