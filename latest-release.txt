@@ -1,2 +1,2 @@
 https://github.com/ivan-hc/Steam-appimage/releases/download/1.0.0.82-2%402025-07-02_1751477745/Steam-1.0.0.82-2-anylinux-x86_64.AppImage
-Sat Jul 12 01:58:14 UTC 2025
+Sun Jul 13 02:06:32 UTC 2025
