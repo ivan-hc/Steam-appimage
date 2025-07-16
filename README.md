@@ -1,6 +1,13 @@
+# Steam-AppImage 🐧
+
+[![GitHub Downloads](https://img.shields.io/github/downloads/ivan-hc/Steam-appimage/total?logo=github&label=GitHub%20Downloads)](https://github.com/ivan-hc/Steam-appimage/releases/latest)
+[![CI Build Status](https://github.com//ivan-hc/Steam-appimage/actions/workflows/CI.yml/badge.svg)](https://github.com/ivan-hc/Steam-appimage/releases/latest)
+
 Unofficial AppImage of Steam built on top of "[RunImage](https://github.com/VHSgunzo/runimage)", the portable single-file Linux container in unprivileged user namespaces
 
 This includes 32bit libraries needed to run Steam, **it will also use the proprietary nvidia driver from the host**.
+
+* [Latest Stable Release](https://github.com/ivan-hc/Steam-appimage/releases/latest)
 
 --------------------------------------------------
 ### NOTE: This wrapper is not verified by, affiliated with, or supported by Valve.
