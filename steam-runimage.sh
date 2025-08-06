@@ -42,7 +42,7 @@ run_install() {
 	pac -Rsndd --noconfirm wget gocryptfs jq \
 		gnupg webkit2gtk-4.1 perl vulkan-tools
 	rim-shrink --all
-	pac -Rsndd --noconfirm binutils svt-av1
+	pac -Rsndd --noconfirm binutils svt-av1 gettext
 
 
 	pac -Qi | awk -F': ' '/Name/ {name=$2}
