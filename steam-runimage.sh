@@ -38,6 +38,9 @@ run_install() {
 	pac -U --noconfirm ./*.pkg.tar.zst
 	rm -f ./*.pkg.tar.zst
 
+	VERSION=$(pacman -Q steam | awk 'NR==1 {print $2; exit}')
+	[ -n "$VERSION" ] && echo "$VERSION" > ~/version
+
 	echo '== shrink (optionally)'
 	pac -Rsndd --noconfirm wget gocryptfs jq gnupg webkit2gtk-4.1 perl
 	rim-shrink --all
@@ -49,8 +52,6 @@ run_install() {
 	name && size {print name, size; name=size=""}' \
 		| column -t | grep MiB | sort -nk 2
 
-	VERSION=$(pacman -Q steam | awk 'NR==1 {print $2; exit}')
-	echo "$VERSION" > ~/version
 	cp /usr/share/icons/hicolor/256x256/apps/steam.png ~/
 	cp /usr/share/applications/steam.desktop ~/
 
