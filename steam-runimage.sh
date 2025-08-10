@@ -62,7 +62,7 @@ run_install() {
 	sed -i 's|"$(id -u)" == "0"|"$(id -u)" == "69"|' /usr/lib/steam/bin_steam.sh
 
 	# do not let steam install a desktop entry
-	sed -i 's|install_bootstrap "$DEFAULTSTEAMDIR"|echo "function disabled"|' /usr/lib/steam/bin_steam.sh
+	sed -i 's|\[ ! -L "$DESKTOP_DIR/$STEAMPACKAGE.desktop" \]|false|' /usr/lib/steam/bin_steam.sh
 
 	echo '== create RunImage config for app (optionally)'
 	cat <<- 'EOF' > "$RUNDIR/config/Run.rcfg"
