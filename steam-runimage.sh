@@ -36,6 +36,9 @@ run_install() {
 	chmod +x ./get-debloated-pkgs.sh
 	./get-debloated-pkgs.sh --add-mesa gtk3-mini opus-mini libxml2-mini
 
+	# remove llvm-libs but don't force it just in case something else depends on it
+	pac -Rsn --noconfirm llvm-libs || true
+
 	VERSION=$(pacman -Q steam | awk 'NR==1 {print $2; exit}')
 	[ -n "$VERSION" ] && echo "$VERSION" > ~/version
 
