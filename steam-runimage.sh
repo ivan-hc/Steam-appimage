@@ -8,8 +8,6 @@ export STARTUPWMCLASS=steam
 export UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*-$ARCH.AppImage.zsync"
 
 URUNTIME="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/uruntime2appimage.sh"
-EXTRA_PACKAGES="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/get-debloated-pkgs.sh"
-
 
 # An example of steam packaging in a RunImage container
 
@@ -41,6 +39,7 @@ run_install() {
 	yes|pac -S glibc-eac lib32-glibc-eac
 
 	echo '== install debloated packages for space saving (optionally)'
+	EXTRA_PACKAGES="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/get-debloated-pkgs.sh"
 	wget --retry-connrefused --tries=30 "$EXTRA_PACKAGES" -O ./get-debloated-pkgs.sh
 	chmod +x ./get-debloated-pkgs.sh
 	./get-debloated-pkgs.sh --add-mesa gtk3-mini opus-mini libxml2-mini
