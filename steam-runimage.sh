@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 set -e
 
+export ARCH="$(uname -m)"
+export DESKTOP=~/steam.desktop
+export ICON=~/steam.png
+export STARTUPWMCLASS=steam
+export UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*-$ARCH.AppImage.zsync"
+
+URUNTIME="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/uruntime2appimage.sh"
+
 # An example of steam packaging in a RunImage container
 
 if [ ! -x 'runimage' ]; then
@@ -31,12 +39,13 @@ run_install() {
 	yes|pac -S glibc-eac lib32-glibc-eac
 
 	echo '== install debloated packages for space saving (optionally)'
-	LLVM="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/llvm-libs-mini-x86_64.pkg.tar.zst"
-	OPUS="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/opus-nano-x86_64.pkg.tar.zst"
-	wget --retry-connrefused --tries=30 "$LLVM" -O ./llvm-libs.pkg.tar.zst
-	wget --retry-connrefused --tries=30 "$OPUS" -O ./opus-nano.pkg.tar.zst
-	pac -U --noconfirm ./*.pkg.tar.zst
-	rm -f ./*.pkg.tar.zst
+	EXTRA_PACKAGES="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/get-debloated-pkgs.sh"
+	wget --retry-connrefused --tries=30 "$EXTRA_PACKAGES" -O ./get-debloated-pkgs.sh
+	chmod +x ./get-debloated-pkgs.sh
+	./get-debloated-pkgs.sh --add-mesa gtk3-mini opus-mini libxml2-mini
+
+	# remove llvm-libs but don't force it just in case something else depends on it
+	pac -Rsn --noconfirm llvm-libs || true
 
 	VERSION=$(pacman -Q steam | awk 'NR==1 {print $2; exit}')
 	[ -n "$VERSION" ] && echo "$VERSION" > ~/version
@@ -94,11 +103,6 @@ rm -f ./steam.RunImage
 mv ./RunDir ./AppDir
 mv ./AppDir/Run ./AppDir/AppRun
 
-cp -v ~/steam.desktop ./AppDir
-cp -v ~/steam.png     ./AppDir
-cp -v ~/steam.png     ./AppDir/.DirIcon
-sed -i '30i\StartupWMClass=steam' ./AppDir/steam.desktop
-
 # steam-runtime is gone and now the script is called steam
 # make a wrapper symlink since steam-screensaver-fix hasn't updated to that
 ln -s ./steam ./AppDir/rootfs/usr/bin/steam-runtime || true
@@ -121,27 +125,13 @@ rm -rfv ./AppDir/sharun/bin/chisel \
 	./AppDir/rootfs/usr/share/icons/AdwaitaLegacy \
 	./AppDir/rootfs/usr/lib/udev/hwdb.bin
 
-VERSION="$(cat ~/version)"
-export ARCH="$(uname -m)"
-UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*-$ARCH.AppImage.zsync"
-
-# make appimage with uruntime
-URUNTIME="https://github.com/VHSgunzo/uruntime/releases/latest/download/uruntime-appimage-dwarfs-$ARCH"
-
-wget --retry-connrefused --tries=30 "$URUNTIME" -O ./uruntime
-chmod +x ./uruntime
-
-# Add udpate info to runtime
-echo "Adding update information \"$UPINFO\" to runtime..."
-./uruntime --appimage-addupdinfo "$UPINFO"
-
+# MAKE APPIMAGE WITH URUNTIME
 echo "Generating AppImage..."
-./uruntime --appimage-mkdwarfs -f \
-	--set-owner 0 --set-group 0 \
-	--no-history --no-create-timestamp \
-	--compression zstd:level=22 -S26 -B8 \
-	--header uruntime \
-	-i ./AppDir -o Steam-"$VERSION"-anylinux-"$ARCH".AppImage
+export VERSION="$(cat ~/version)"
+export OUTNAME=Steam-"$VERSION"-anylinux-"$ARCH".AppImage
+wget --retry-connrefused --tries=30 "$URUNTIME" -O ./uruntime2appimage
+chmod +x ./uruntime2appimage
+./uruntime2appimage
 
 # make squashfs appbundle
 UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*$ARCH*.AppBundle.zsync"
@@ -154,7 +144,6 @@ echo "Generating [sqfs]AppBundle...(Go runtime)"
 	--appimage-compat --disable-use-random-workdir \
 	--add-updinfo "$UPINFO" \
 	--output-to "Steam-${VERSION}-anylinux-${ARCH}.sqfs.AppBundle"
-
-zsyncmake ./*.AppImage -u ./*.AppImage
 zsyncmake ./*.AppBundle -u ./*.AppBundle
+
 echo "All Done!"
