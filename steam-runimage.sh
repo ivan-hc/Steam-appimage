@@ -31,12 +31,10 @@ run_install() {
 	yes|pac -S glibc-eac lib32-glibc-eac
 
 	echo '== install debloated packages for space saving (optionally)'
-	LLVM="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/llvm-libs-mini-x86_64.pkg.tar.zst"
-	OPUS="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/download/continuous/opus-nano-x86_64.pkg.tar.zst"
-	wget --retry-connrefused --tries=30 "$LLVM" -O ./llvm-libs.pkg.tar.zst
-	wget --retry-connrefused --tries=30 "$OPUS" -O ./opus-nano.pkg.tar.zst
-	pac -U --noconfirm ./*.pkg.tar.zst
-	rm -f ./*.pkg.tar.zst
+	EXTRA_PACKAGES="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/get-debloated-pkgs.sh"
+	wget --retry-connrefused --tries=30 "$EXTRA_PACKAGES" -O ./get-debloated-pkgs.sh
+	chmod +x ./get-debloated-pkgs.sh
+	./get-debloated-pkgs.sh --add-mesa gtk3-mini opus-mini libxml2-mini
 
 	VERSION=$(pacman -Q steam | awk 'NR==1 {print $2; exit}')
 	[ -n "$VERSION" ] && echo "$VERSION" > ~/version
