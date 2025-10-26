@@ -42,10 +42,12 @@ run_install() {
 	EXTRA_PACKAGES="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/get-debloated-pkgs.sh"
 	wget --retry-connrefused --tries=30 "$EXTRA_PACKAGES" -O ./get-debloated-pkgs.sh
 	chmod +x ./get-debloated-pkgs.sh
-	./get-debloated-pkgs.sh --add-mesa gtk3-mini opus-mini libxml2-mini
+	./get-debloated-pkgs.sh --add-mesa gtk3-mini opus-mini libxml2-mini gdk-pixbuf2-mini librsvg-mini
 
 	# remove llvm-libs but don't force it just in case something else depends on it
 	pac -Rsn --noconfirm llvm-libs || true
+	# same for glycin
+	pac -Rsn --noconfirm glycin || true
 
 	VERSION=$(pacman -Q steam | awk 'NR==1 {print $2; exit}')
 	[ -n "$VERSION" ] && echo "$VERSION" > ~/version
