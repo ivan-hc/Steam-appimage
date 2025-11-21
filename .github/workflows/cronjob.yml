@@ -1,7 +1,7 @@
 name: Github Action with a cronjob trigger
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 1/10 * *"
 
   workflow_dispatch:
 
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout source repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: "Release date"
         run: |
