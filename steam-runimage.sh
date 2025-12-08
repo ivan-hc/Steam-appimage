@@ -87,7 +87,6 @@ run_install() {
 	RIM_SHARE_THEMES="${RIM_SHARE_THEMES:=1}"
 	RIM_ALLOW_ROOT="${RIM_ALLOW_ROOT:=1}"
 	RIM_BIND="/usr/share/locale:/usr/share/locale,/usr/lib/locale:/usr/lib/locale"
-	RIM_UNSHARE_RESOLVCONF=${RIM_UNSHARE_RESOLVCONF:=1}
 	RIM_AUTORUN=steam-screensaver-fix-runtime
 	EOF
 
@@ -134,6 +133,9 @@ export VERSION="$(cat ~/version)"
 export OUTNAME=Steam-"$VERSION"-anylinux-"$ARCH".AppImage
 wget --retry-connrefused --tries=30 "$URUNTIME" -O ./uruntime2appimage
 chmod +x ./uruntime2appimage
+
+# needs to be added here because it wont work in the config file
+export ADD_PERMA_ENV_VARS='RIM_UNSHARE_RESOLVCONF=1'
 ./uruntime2appimage
 
 # make squashfs appbundle
