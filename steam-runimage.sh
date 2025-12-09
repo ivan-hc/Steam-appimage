@@ -87,6 +87,7 @@ run_install() {
 	RIM_SHARE_THEMES="${RIM_SHARE_THEMES:=1}"
 	RIM_BIND="/usr/share/locale:/usr/share/locale,/usr/lib/locale:/usr/lib/locale"
 	# work around issue with network manager overwritting /etc/resolv.conf when waking from sleep
+	mkdir -p "$RUNPIDDIR"
 	cp -f /etc/resolv.conf "$RUNPIDDIR"/resolv.conf
 	RIM_RESOLVCONF_FILE="$RUNPIDDIR"/resolv.conf
 	RIM_AUTORUN=steam-screensaver-fix-runtime
