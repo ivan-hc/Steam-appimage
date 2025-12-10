@@ -90,6 +90,7 @@ run_install() {
 	mkdir -p "$RUNPIDDIR"
 	cp -f /etc/resolv.conf "$RUNPIDDIR"/resolv.conf
 	RIM_RESOLVCONF_FILE="$RUNPIDDIR"/resolv.conf
+	RIM_WAIT_RPIDS_EXIT=1
 	RIM_AUTORUN=steam-screensaver-fix-runtime
 	EOF
 
