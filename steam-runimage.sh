@@ -26,7 +26,7 @@ run_install() {
 		lib32-libpipewire libpipewire pipewire
 		lib32-libpipewire libpulse lib32-libpulse vkd3d lib32-vkd3d wget
 		vulkan-mesa-layers lib32-vulkan-mesa-layers freetype2 lib32-freetype2 fuse2
-		yad mangohud lib32-mangohud gamescope gamemode zenity-gtk3 steam-screensaver-fix
+		mangohud lib32-mangohud gamescope gamemode zenity-gtk3 steam-screensaver-fix
 	)
 
 	echo '== checking for updates'
@@ -85,6 +85,7 @@ run_install() {
 	RIM_SHARE_ICONS="${RIM_SHARE_ICONS:=1}"
 	RIM_SHARE_FONTS="${RIM_SHARE_FONTS:=1}"
 	RIM_SHARE_THEMES="${RIM_SHARE_THEMES:=1}"
+	RIM_HOST_TOOLS=git,xxd,xwininfo,xdotool,wget,unzip,yad
 	RIM_BIND="/usr/share/locale:/usr/share/locale,/usr/lib/locale:/usr/lib/locale"
 	# work around issue with network manager overwritting /etc/resolv.conf when waking from sleep
 	mkdir -p "$RUNPIDDIR"
