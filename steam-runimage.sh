@@ -53,7 +53,7 @@ run_install() {
 	[ -n "$VERSION" ] && echo "$VERSION" > ~/version
 
 	echo '== shrink (optionally)'
-	pac -Rsndd --noconfirm wget gocryptfs jq gnupg webkit2gtk-4.1 perl
+	pac -Rsndd --noconfirm wget gocryptfs jq gnupg perl
 	rim-shrink --all
 	pac -Rsndd --noconfirm binutils gettext e2fsprogs
 
