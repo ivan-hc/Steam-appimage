@@ -86,7 +86,7 @@ run_install() {
 	RIM_SHARE_FONTS="${RIM_SHARE_FONTS:=1}"
 	RIM_SHARE_THEMES="${RIM_SHARE_THEMES:=1}"
 	RIM_HOST_TOOLS=git,xxd,xwininfo,xdotool,wget,unzip,yad
-	RIM_BIND="/usr/share/locale:/usr/share/locale,/usr/lib/locale:/usr/lib/locale"
+	RIM_BIND="/usr/share/locale:/usr/share/locale,/usr/lib/locale:/usr/lib/locale${RIM_EXTRA_BIND:+,${RIM_EXTRA_BIND}}"
 	RIM_COPY_RESOLVCONF=1
 	RIM_WAIT_RPIDS_EXIT=1
 	RIM_AUTORUN=steam-screensaver-fix-runtime
