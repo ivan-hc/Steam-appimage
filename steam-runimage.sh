@@ -55,7 +55,7 @@ run_install() {
 	echo '== shrink (optionally)'
 	pac -Rsndd --noconfirm wget gocryptfs jq gnupg perl
 	rim-shrink --all
-	pac -Rsndd --noconfirm binutils gettext e2fsprogs
+	pac -Rsndd --noconfirm binutils gettext
 
 
 	pac -Qi | awk -F': ' '/Name/ {name=$2}
