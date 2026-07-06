@@ -32,7 +32,7 @@ jobs:
         mv ./*.tar.gz dist/
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v4.4.0
+      uses: actions/upload-artifact@v4.6.2
       with:
         name: Utils
         path: 'dist'
@@ -43,7 +43,7 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
-        - uses: actions/download-artifact@v4.1.8
+        - uses: actions/download-artifact@v4.3.0
           with:
             name: Utils
 
