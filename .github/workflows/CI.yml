@@ -54,7 +54,7 @@ jobs:
             echo "DATE=$(date +'%Y-%m-%d_%s')" >> "${GITHUB_ENV}"
 
         - name: Release Artifacts
-          uses: softprops/action-gh-release@v3.0.1
+          uses: softprops/action-gh-release@v3.0.2
           with:
             name: "Steam: ${{ env.VERSION }}"
             tag_name: "${{ env.VERSION }}@${{ env.DATE }}"
