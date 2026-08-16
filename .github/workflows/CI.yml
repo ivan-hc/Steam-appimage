@@ -10,13 +10,15 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v7
 
     - name: build
       run: |
         sudo apt install zsync
+        sudo sysctl -w kernel.apparmor_restrict_unprivileged_unconfined=0
+        sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
         chmod +x ./steam-runimage.sh && ./steam-runimage.sh
         mkdir -p ./dist
         mv *.AppImage* dist/
